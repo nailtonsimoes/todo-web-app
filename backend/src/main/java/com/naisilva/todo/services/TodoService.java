@@ -2,9 +2,7 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.repositories.TodoRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +12,6 @@ import java.util.Optional;
 public class TodoService {
     @Autowired
     TodoRepository todoRepository;
-    @Autowired
-    private ModelMapper modelMapper;
 
     public Todo createTodo(Todo todoRequest) {
         return todoRepository.save(todoRequest);
