@@ -1,31 +1,30 @@
 package com.naisilva.todo.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Todo {
+@Table(name = "TB_TODO")
+public class Todo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
     private String titulo;
     private String descricao;
-    private LocalDateTime dataParaFinalizar;
+    private String dataParaFinalizar;
     private Boolean finalizado = false;
-
-    public Todo(){
-        super();
-    }
-
-    public Todo(Integer id, String titulo, String descricao, LocalDateTime dataParaFinalizar, Boolean finalizado) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.dataParaFinalizar = dataParaFinalizar;
-        this.finalizado = finalizado;
-    }
 
     @Override
     public boolean equals(Object o) {
