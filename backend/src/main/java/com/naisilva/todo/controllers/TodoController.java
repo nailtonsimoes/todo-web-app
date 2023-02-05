@@ -19,7 +19,7 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Todo> findById(@PathVariable Integer id){
+    public ResponseEntity<Todo> findById(@PathVariable Integer id) {
         Todo todoResponse = todoService.findById(id);
         return ResponseEntity.ok().body(todoResponse);
     }
@@ -38,7 +38,7 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Todo> insertTodo(@RequestBody Todo todo){
+    public ResponseEntity<Todo> insertTodo(@RequestBody Todo todo) {
         todoService.createTodo(todo);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -50,19 +50,22 @@ public class TodoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Todo> listAllTodo(){
+    public List<Todo> listAllTodo() {
         return todoService.listAll();
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Todo updateTodo(@PathVariable Integer id,@RequestBody Todo todo){
-        return todoService.updateTodo(id,todo);
+    public ResponseEntity<Todo> updateTodo(@PathVariable Integer id, @RequestBody Todo todo) {
+        Todo todoModel = todoService.updateTodo(id, todo);
+        return ResponseEntity
+                .ok()
+                .body(todoModel);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.GONE)
-    public ResponseEntity<Void> deleteTodo(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteTodo(@PathVariable Integer id) {
         todoService.deleteTodo(id);
         return ResponseEntity.noContent().build();
     }

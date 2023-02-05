@@ -34,7 +34,13 @@ public class TodoService {
     }
 
     public Todo updateTodo(Integer id, Todo todo) {
-        Todo todoModel = todoRepository.findById(id).get();
+        Todo todoModel = findById(id);
+
+        todoModel.setTitulo(todo.getTitulo());
+        todoModel.setFinalizado(todo.getFinalizado());
+        todoModel.setDescricao(todo.getDescricao());
+        todoModel.setDataParaFinalizar(todo.getDataParaFinalizar());
+
         return todoRepository.save(todoModel);
     }
 
