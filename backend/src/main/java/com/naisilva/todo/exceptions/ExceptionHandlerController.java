@@ -1,6 +1,5 @@
-package com.naisilva.todo.controllers.exceptions;
+package com.naisilva.todo.exceptions;
 
-import com.naisilva.todo.services.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

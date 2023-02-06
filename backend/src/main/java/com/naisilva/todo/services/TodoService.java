@@ -2,6 +2,7 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.repositories.TodoRepository;
+import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

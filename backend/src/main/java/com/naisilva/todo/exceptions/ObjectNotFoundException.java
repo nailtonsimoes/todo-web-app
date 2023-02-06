@@ -1,4 +1,4 @@
-package com.naisilva.todo.services;
+package com.naisilva.todo.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;

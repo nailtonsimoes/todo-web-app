@@ -1,6 +1,5 @@
-package com.naisilva.todo.controllers.exceptions;
+package com.naisilva.todo.exceptions;
 
-import com.naisilva.todo.services.ObjectNotFoundException;
 import lombok.Data;
 
 import java.io.Serializable;

@@ -1,0 +1,32 @@
+<div class="container">
+
+    <button class="novo-todo mat-elevation-z8" mat-stroked-button color="primary">Nova Tarefa</button>
+
+    <div class="content" *ngFor="let item of list">
+
+        <mat-card class="mat-elevation-z8">
+
+            <p>Data para finalizar: {{item.dataParaFinalizar}}</p>
+
+            <mat-card-header>
+              <mat-card-title>{{item.titulo}}</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+
+            <div class="actions">
+                <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="accent" aria-label="Example icon button with a menu icon">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" aria-label="Example icon button with a menu icon">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+
+            </div>
+
+        </mat-card>
+    </div>
+</div>
