@@ -34,15 +34,21 @@ public class DBservice {
                 ,"Fazer front end"
                 ,"At"
                 ,sdf.parse("06/02/2023")
-                ,true
+                ,false
         );
         Todo t3 = new Todo(null
                 ,"Fazer Integração"
                 ,"At"
                 ,sdf.parse("06/02/2023")
-                ,true
+                ,false
+        );
+        Todo t4 = new Todo(null
+                ,"Uma tarefa de teste a mais"
+                ,"At"
+                ,sdf.parse("06/02/2023")
+                ,false
         );
 
-        todoRepository.saveAll(Arrays.asList(t1,t2,t3));
+        todoRepository.saveAll(Arrays.asList(t1,t2,t3,t4));
     }
 }

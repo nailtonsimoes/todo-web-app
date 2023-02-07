@@ -12,6 +12,18 @@
     margin-top: 3rem;
 }
 
+.badge{
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge button {
+    margin: auto;
+    width: 100%;
+}
+
 mat-card {
     margin-top: .8rem;
     padding: rem;

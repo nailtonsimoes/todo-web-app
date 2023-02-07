@@ -1,0 +1,27 @@
+<form>
+    <h1>Criando Tarefa</h1>
+    <mat-form-field class="data-finalizar" appearance="fill">
+        <mat-label>Input disabled</mat-label>
+        <input matInput [matDatepicker]="dp3">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3></mat-datepicker>
+    </mat-form-field>
+
+    <div class="forms">
+        <mat-form-field class="form">
+            <mat-label>Titulo</mat-label>
+            <textarea matInput placeholder="Ex. estudar spring boot"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="form">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput placeholder="Ex. aplicar padrões de arquitetura"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="buttons">
+        <button mat-stroked-button color="primary">Criar</button>
+        <button mat-stroked-button color="warn">Cancelar</button>
+    </div>
+</form>

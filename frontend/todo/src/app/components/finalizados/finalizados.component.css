@@ -1,0 +1,34 @@
+.container {
+    width: 85%;
+    margin: auto;
+}
+
+.content {
+    width: 100%;
+}
+
+.badge button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1rem;
+    color: rgb(105, 105, 105);
+    padding: 1.2rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+p {
+    text-align: end;
+    font-weight: 600;
+    color: rgb(93, 91, 91);
+    padding-bottom: 0;
+}
+
+mat-card {
+    margin-top: .8rem;
+    padding: .2rem;
+}
