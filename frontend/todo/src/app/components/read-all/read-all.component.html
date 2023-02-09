@@ -4,7 +4,7 @@
     <button mat-stroked-button color="primary" matBadge="{{ closed }}" (click)="navegateToFinished()">Tarefas finalizadas</button>
   </div>
 
-    <button class="novo-todo mat-elevation-z8" mat-stroked-button color="primary">Nova Tarefa</button>
+    <button routerLink="create" class="novo-todo mat-elevation-z8" mat-stroked-button color="primary">Nova Tarefa</button>
 
     <div class="content" *ngFor="let item of list">
 
@@ -21,7 +21,7 @@
                 <button (click)="finalizar(item)" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
                     <mat-icon>done</mat-icon>
                   </button>
-                  <button mat-mini-fab color="accent" aria-label="Example icon button with a menu icon">
+                  <button routerLink="update/{{item.id}}" mat-mini-fab color="accent" aria-label="Example icon button with a menu icon">
                     <mat-icon>edit</mat-icon>
                   </button>
                   <button mat-mini-fab color="warn" (click)="delete(item.id)">

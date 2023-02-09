@@ -1,5 +1,5 @@
 <form>
-    <h1>Criando Tarefa</h1>
+    <h1>Atualizando Tarefa</h1>
     <mat-form-field class="data-finalizar" appearance="fill">
         <mat-label>Data para finalizar</mat-label>
         <input [(ngModel)]="todo.dataParaFinalizar" name="todo.dataParaFinalizar" matInput [matDatepicker]="dp3">
@@ -20,7 +20,7 @@
     </div>
 
     <div class="buttons">
-        <button mat-stroked-button color="primary" (click)="create()">Criar</button>
+        <button mat-stroked-button color="primary" (click)="update()">Atualizar</button>
         <button mat-stroked-button (click)="cancel()" color="warn">Cancelar</button>
     </div>
 </form>

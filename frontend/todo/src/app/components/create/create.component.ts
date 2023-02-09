@@ -1,4 +1,7 @@
+import { TodoService } from 'src/app/services/todo.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-create',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+  todo: Todo = {
+    titulo:'',
+    descricao:'',
+    dataParaFinalizar: new Date(),
+    finalizado: false
+  };
+
+  constructor(private router: Router, private service: TodoService) { }
 
   ngOnInit(): void {
+
+  }
+
+  create(){
+    this.formataData();
+    this.service.create(this.todo).subscribe(
+      (res)=>{
+        alert('Tarefa Criada com sucesso.');
+        this.router.navigate(['']);
+      },
+      err =>{
+        alert('Erro ao criar tarefa!');
+      }
+    )
+  }
+
+  formataData(): void {
+    let data = new Date(this.todo.dataParaFinalizar);
+    this.todo.dataParaFinalizar = `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
+  }
+
+  cancel(): void {
+    this.router.navigate(['']);
   }
 
 }

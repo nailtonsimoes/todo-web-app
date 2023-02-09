@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateComponent } from './components/create/create.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UpdateComponent } from './components/update/update.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     FooterComponent,
     ReadAllComponent,
     FinalizadosComponent,
-    CreateComponent
+    CreateComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

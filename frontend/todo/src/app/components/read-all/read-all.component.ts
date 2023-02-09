@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Todo } from './../../models/todo';
-import { TodoService } from './../../services/todo.service';
+import { Todo } from '../../models/todo';
+import { TodoService } from '../../services/todo.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -50,7 +50,7 @@ export class ReadAllComponent implements OnInit {
     this.service.delete(id).subscribe(
       (res)=> {
         if(res === null){
-          alert('Tarefa  com Sucesso!');
+          alert('Tarefa Deletada com Sucesso!');
           this.list = this.list.filter(todo => todo.id !== id);
         }
       }
