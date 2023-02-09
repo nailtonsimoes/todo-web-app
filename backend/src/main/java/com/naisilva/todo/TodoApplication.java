@@ -1,18 +1,13 @@
 package com.naisilva.todo;
 
-import com.naisilva.todo.domain.Todo;
-import com.naisilva.todo.repositories.TodoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.sql.Array;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
+@OpenAPIDefinition(info = @Info(title = "Web Todo App API", version = "0.1", description = "Aplicação para cadastro de tarefas"))
 @SpringBootApplication
 public class TodoApplication {
 
