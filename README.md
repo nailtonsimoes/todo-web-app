@@ -46,6 +46,6 @@
      O padrao de arquitetura implementado foi o MVC com tecnicas como repository pattern, SOLID e clean code.
  </li>
  <li><h3>No Front-end(SPA):</h3>
-    Utilizando Angular 13 e a biblioteca do Angular Material.
+    Utilizando Angular 14 e a biblioteca do Angular Material.
 </li>
  </ul>
