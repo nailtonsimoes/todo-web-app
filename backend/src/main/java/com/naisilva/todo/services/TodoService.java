@@ -14,11 +14,15 @@ public class TodoService {
     @Autowired
     TodoRepository todoRepository;
 
+    public TodoService(TodoRepository todoRepository){
+        this.todoRepository = todoRepository;
+    }
+
     public Todo createTodo(Todo todoRequest) {
         return todoRepository.save(todoRequest);
     }
 
-    public Todo findById(Integer id) {
+    public Todo findById(Long id) {
         Optional<Todo> todoResponse = todoRepository.findById(id);
         return todoResponse.orElseThrow(
                 () -> new ObjectNotFoundException(
@@ -30,29 +34,36 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Todo updateTodo(Integer id, Todo todo) {
+    public Todo updateTodo(Long id, Todo todo) {
         Todo todoModel = findById(id);
 
-        todoModel.setTitulo(todo.getTitulo());
-        todoModel.setFinalizado(todo.getFinalizado());
-        todoModel.setDescricao(todo.getDescricao());
-        todoModel.setDataParaFinalizar(todo.getDataParaFinalizar());
+        todoModel.setTitle(todo.getTitle());
+        todoModel.setFinshed(todo.getFinshed());
+        todoModel.setDescription(todo.getDescription());
+        todoModel.setDateForFinsh(todo.getDateForFinsh());
 
         return todoRepository.save(todoModel);
     }
 
-    public void deleteTodo(Integer id) {
+    public void deleteTodo(Long id) {
         todoRepository.deleteById(id);
     }
 
-
+    /*
     public List<Todo> findAllOpen() {
         List<Todo> list = todoRepository.findAllOpen();
         return list;
     }
+     */
 
+    /*
     public List<Todo> findAllClose() {
         List<Todo> list = todoRepository.findAllClose();
         return list;
+    }
+    */
+
+    public List<Todo> getTodosByUserId(Long userId) {
+        return todoRepository.findByUserId(userId);
     }
 }

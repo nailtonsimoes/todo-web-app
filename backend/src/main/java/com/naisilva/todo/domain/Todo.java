@@ -20,24 +20,24 @@ public class Todo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Integer id;
-    private String titulo;
-    private String descricao;
+    private String title;
+
+    private String description;
+
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dataParaFinalizar;
-    private Boolean finalizado = false;
+    private Date dateForFinsh;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Todo)) return false;
-        Todo todo = (Todo) o;
-        return id.equals(todo.id);
-    }
+    private Boolean finshed = false;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    @ManyToOne
+    private User user;
+
+    public Todo(Long id, String title, String description, Date dateForFinsh, Boolean finshed){
+        this.title = title;
+        this.description = description;
+        this.dateForFinsh = dateForFinsh;
+        this.finshed = finshed;
     }
 }

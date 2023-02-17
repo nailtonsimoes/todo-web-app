@@ -9,11 +9,16 @@ import java.util.List;
 
 
 @Repository
-public interface TodoRepository extends JpaRepository<Todo, Integer> {
+public interface TodoRepository extends JpaRepository<Todo, Long> {
 
+    /*
     @Query("SELECT obj FROM Todo obj WHERE obj.finalizado = false ORDER BY obj.dataParaFinalizar")
     List<Todo> findAllOpen();
+    */
 
-    @Query("SELECT obj FROM Todo obj WHERE obj.finalizado = true ORDER BY obj.dataParaFinalizar")
-    List<Todo> findAllClose();
+   /* @Query("SELECT obj FROM Todo obj WHERE obj.finalizado = true ORDER BY obj.dataParaFinalizar")
+    List<Todo> findAllClose(); */
+
+    List<Todo> findByUserId(Long userId);
+
 }
