@@ -6,46 +6,59 @@
 
  > <h2>Introdução:</h2>
 
- Aplicativo de tarefas onde o usuario pode realizar o CRUD de tarefas.</br>
- O modelo de tarefas possui os seguintes atributos:</br>
+ Aplicativo de tarefas onde o usuario pode realizar o CRUD de tarefas e Cadastro de usuarios</br>
+ 
+ O modelo de tarefa possui os seguintes atributos:</br>
    <ul>
     <li>id</li>
     <li>titulo</li>
     <li>descrição</li>
     <li>data para finalizar</li>
     <li>finalizado</li>
-   </ul>
+    <li>user</li>
+   </ul></br>
+ O modelo de Usuario possui os seguintes atributos:</br>
+ <ul>
+    <li>id</li>
+    <li>userName</li>
+    <li>password</li>
+    <li>email</li>
+    <li>todos</li>
+   </ul></br>
  
- <img width="268" alt="image" src="https://user-images.githubusercontent.com/44982114/218007782-45a811c4-339a-4987-9a9a-b404c0557a36.png">
+ ![image](https://user-images.githubusercontent.com/44982114/219597688-85d59260-10dd-454e-a64c-a14ff9a58f0b.png)
+
 
  </br>
  
  > <h2>Instalação:</h2>
   
  <ul>
- <li><h3>Back-end:</h3>
-   * Abra a pasta backend em sua ide.</br>
-   * Configure a JDK (11 ou superior).</br>
-   * Baixe as dependencias contidas no arquivo pom.xml.</br>
-   * Execute a Aplicação. (Será executada na porta 8080)</br>
- </li>
- <li><h3>Front-end:</h3>
-   * Abra a pasta frontend em sua ide.</br>
-   * Baixe as dependencias contidas no arquivo package.json. (execute o comando "npm install")</br>
-   * Execute a Aplicação. (Será executada na porta 4200)</br>
-</li>
+    <li>
+      <h3>Back-end:</h3>
+        * Abra a pasta backend em sua ide.</br>
+        * Configure a JDK (11 ou superior).</br>
+        * Baixe as dependencias contidas no arquivo pom.xml.</br>
+        * Execute a Aplicação. (Será executada na porta 8080)</br>
+    </li>
+    <li>
+      <h3>Front-end:</h3>
+        * Abra a pasta frontend em sua ide.</br>
+        * Baixe as dependencias contidas no arquivo package.json. (execute o comando "npm install")</br>
+        * Execute a Aplicação. (Será executada na porta 4200)</br>
+   </li>
  </ul>
+ 
  </br>
-
+ 
  > <h2>Tecnologias Utilizadas:</h2>
-
-   Aplicação web construida com: </br>
+   Aplicação web construida com base no padrao de arquitetura MVC com tecnicas como design patterns, SOLID e clean code.</br>
+   
   <ul>
- <li><h3>No back-end(APIRest):</h3>
-     Utilizando spring boot 2.7.8 com JAVA 11, lombok, jpa, banco de dados H2 e swagger 3.0.
-     O padrao de arquitetura implementado foi o MVC com tecnicas como repository pattern, SOLID e clean code.
- </li>
- <li><h3>No Front-end(SPA):</h3>
-    Utilizando Angular 14 e a biblioteca do Angular Material.
-</li>
- </ul>
+    <li><h3>No back-end(APIRest):</h3>
+        Utilizando spring boot 2.7.8 com JAVA 11, lombok, jpa, banco de dados H2 e swagger 3.0.
+    </li>
+    <li><h3>No Front-end(SPA):</h3>
+       Utilizando Angular 14 e a biblioteca do Angular Material.
+    </li>
+  </ul>
