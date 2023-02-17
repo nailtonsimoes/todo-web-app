@@ -1,7 +1,10 @@
+import { User } from "./User";
+
 export interface Todo {
     id?: String,
-    titulo: String,
-    descricao?: string,
-    dataParaFinalizar: any,
-    finalizado: Boolean
+    title: String,
+    description?: string,
+    dateForFinalize: any,
+    finshed: Boolean,
+    user?: User
 }

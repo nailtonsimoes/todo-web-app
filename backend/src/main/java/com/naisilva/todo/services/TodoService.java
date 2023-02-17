@@ -40,7 +40,8 @@ public class TodoService {
         todoModel.setTitle(todo.getTitle());
         todoModel.setFinshed(todo.getFinshed());
         todoModel.setDescription(todo.getDescription());
-        todoModel.setDateForFinsh(todo.getDateForFinsh());
+        todoModel.setDateForFinalize(todo.getDateForFinalize());
+        todoModel.setUser(todo.getUser());
 
         return todoRepository.save(todoModel);
     }

@@ -25,9 +25,10 @@ export class ReadAllComponent implements OnInit {
   findAll(): void {
     this.service.findAll().subscribe((res)=>{
       res.forEach((todo) => {
-        if(todo.finalizado){
+        if(todo.finshed){
           this.listFinished.push(todo);
         } else{
+          console.log(todo);
           this.list.push(todo);
         }
       });
@@ -39,7 +40,7 @@ export class ReadAllComponent implements OnInit {
 
   countClosed(): void {
     for(let todo of this.list){
-      if(todo.finalizado){
+      if(todo.finshed){
         this.closed++;
       }
     }
@@ -58,7 +59,7 @@ export class ReadAllComponent implements OnInit {
   }
 
   finalizar(item: Todo): void {
-    item.finalizado = true;
+    item.finshed = true;
     this.service.update(item).subscribe(
       ()=> {
         alert('Tarefa Finalizada com Sucesso!');

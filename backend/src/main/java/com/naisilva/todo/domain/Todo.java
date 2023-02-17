@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -27,17 +26,17 @@ public class Todo implements Serializable {
     private String description;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date dateForFinsh;
+    private Date dateForFinalize;
 
     private Boolean finshed = false;
 
     @ManyToOne
     private User user;
 
-    public Todo(Long id, String title, String description, Date dateForFinsh, Boolean finshed){
+    public Todo(Long id, String title, String description, Date dateForFinilze, Boolean finshed){
         this.title = title;
         this.description = description;
-        this.dateForFinsh = dateForFinsh;
+        this.dateForFinalize = dateForFinilze;
         this.finshed = finshed;
     }
 }

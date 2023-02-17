@@ -2,7 +2,7 @@
     <h1>Atualizando Tarefa</h1>
     <mat-form-field class="data-finalizar" appearance="fill">
         <mat-label>Data para finalizar</mat-label>
-        <input [(ngModel)]="todo.dataParaFinalizar" name="todo.dataParaFinalizar" matInput [matDatepicker]="dp3">
+        <input [(ngModel)]="todo.dateForFinalize" name="todo.dataParaFinalizar" matInput [matDatepicker]="dp3">
         <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
         <mat-datepicker #dp3></mat-datepicker>
     </mat-form-field>
@@ -10,12 +10,12 @@
     <div class="forms">
         <mat-form-field class="form">
             <mat-label>Titulo</mat-label>
-            <textarea [(ngModel)]="todo.titulo" name="todo.name" matInput placeholder="Ex. estudar spring boot"></textarea>
+            <textarea [(ngModel)]="todo.title" name="todo.name" matInput placeholder="Ex. estudar spring boot"></textarea>
         </mat-form-field>
 
         <mat-form-field class="form">
             <mat-label>Descrição</mat-label>
-            <textarea [(ngModel)]="todo.descricao" name="todo.descricao" matInput placeholder="Ex. aplicar padrões de arquitetura"></textarea>
+            <textarea [(ngModel)]="todo.description" name="todo.descricao" matInput placeholder="Ex. aplicar padrões de arquitetura"></textarea>
         </mat-form-field>
     </div>
 

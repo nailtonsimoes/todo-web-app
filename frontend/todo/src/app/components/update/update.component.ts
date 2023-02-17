@@ -11,10 +11,10 @@ import { TodoService } from 'src/app/services/todo.service';
 export class UpdateComponent implements OnInit {
 
   todo: Todo = {
-    titulo:'',
-    descricao:'',
-    dataParaFinalizar: new Date(),
-    finalizado: false
+    title:'',
+    description:'',
+    dateForFinalize: new Date(),
+    finshed: false
   };
 
   constructor(
@@ -51,8 +51,8 @@ export class UpdateComponent implements OnInit {
   }
 
   formataData(): void {
-    let data = new Date(this.todo.dataParaFinalizar);
-    this.todo.dataParaFinalizar = `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
+    let data = new Date(this.todo.dateForFinalize);
+    this.todo.dateForFinalize = `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
   }
 
   cancel(): void {
