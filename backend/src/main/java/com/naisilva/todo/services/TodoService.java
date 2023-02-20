@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoService {
@@ -44,7 +43,7 @@ public class TodoService {
 
         todoModel.setTitle(todo.getTitle());
         todoModel.setDescription(todo.getDescription());
-        todoModel.setFinshed(todo.getFinshed());
+        todoModel.setFinished(todo.getFinished());
         todoModel.setDateForFinalize(todo.getDateForFinalize());
 
         todoModel.setUser(user);
@@ -68,7 +67,7 @@ public class TodoService {
 
         todoModel.setTitle(todo.getTitle());
         todoModel.setDescription(todo.getDescription());
-        todoModel.setFinshed(todo.getFinshed());
+        todoModel.setFinished(todo.getFinished());
         todoModel.setDateForFinalize(todo.getDateForFinalize());
 
         return todoRepository.save(todoModel);

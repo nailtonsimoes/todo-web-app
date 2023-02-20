@@ -1,5 +1,6 @@
 package com.naisilva.todo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
+    @JsonIgnore
     private Long id;
 
     @Column(name = "userName")
@@ -32,6 +34,7 @@ public class User  {
     @Column(name = "token")
     private String token;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todos = new ArrayList<>();
 

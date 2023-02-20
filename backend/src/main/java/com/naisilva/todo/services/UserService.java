@@ -1,16 +1,19 @@
 package com.naisilva.todo.services;
 
-import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
+import com.naisilva.todo.dtos.userDtos.UserDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -21,37 +24,65 @@ public class UserService {
     private TodoRepository todoRepository;
 
     @Autowired
+    private ModelMapper mapper;
+
+    @Autowired
     public UserService(UserRepository userRepository, TodoRepository todoRepository) {
         this.userRepository = userRepository;
         this.todoRepository = todoRepository;
-    }
-
-    public User findUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(
-                () -> new ObjectNotFoundException(
-                        "item não encontrado id: " + id + ", tipo: " + User.class.getName()
-                ));
-    }
-
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
     }
 
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(
-                        () -> new ObjectNotFoundException(
-                                "Usuario não encontrado: " + email + ", tipo: " + User.class.getName()
-                        ));
-    }
-
     public Optional<User> getUserByUsername(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    public Optional<UserDto> getUserByUserId(Long id) {
+        Optional<User> userModelOptional = userRepository.findById(id);
+        if (userModelOptional.isPresent()) {
+            User userModel = userModelOptional.get();
+            UserDto user = new UserDto();
+            BeanUtils.copyProperties(userModel, user);
+            List<TodoDtoResponse> todos = userModel.getTodos().stream()
+                    .map(todoModel -> {
+                        TodoDtoResponse todo = new TodoDtoResponse();
+                        BeanUtils.copyProperties(todoModel, todo);
+                        return todo;
+                    })
+                    .collect(Collectors.toList());
+            user.setTodos(todos);
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    public List<UserDto> listAllUsers() {
+        List<User> listUserModel = userRepository.findAll();
+        List<UserDto> listUserExit = listUserModel
+                .stream()
+                .map(user -> new UserDto(
+                        user.getId(),
+                        user.getUserName(),
+                        user.getPassword(),
+                        user.getEmail(),
+                        user.getToken(),
+                        user.getTodos()
+                                .stream()
+                                .map(
+                                        todo -> new TodoDtoResponse(
+                                                todo.getId(),
+                                                todo.getTitle(),
+                                                todo.getDescription(),
+                                                todo.getDateForFinalize(),
+                                                todo.getFinished()
+                                        )
+                                ).collect(Collectors.toList()))).collect(Collectors.toList());
+
+        return listUserExit;
     }
 
     public void updateUser(Long id, User user) {
@@ -68,7 +99,9 @@ public class UserService {
 
         userRepository.save(userModel);
     }
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
 }

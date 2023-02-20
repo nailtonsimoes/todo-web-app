@@ -2,20 +2,22 @@ package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
-import com.naisilva.todo.dtos.TodoDto;
+import com.naisilva.todo.dtos.userDtos.UserDto;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @CrossOrigin("*")
 @RestController
@@ -27,23 +29,51 @@ public class UserController {
     @Autowired
     private final TodoService todoService;
 
+    @Autowired
     public UserController(UserService userService, TodoService todoService) {
         this.userService = userService;
         this.todoService = todoService;
     }
 
+
     @PostMapping
-    @Operation(summary = "CREATE", description = "Cria um usuario")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.saveUser(user);
-        return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
+    @Operation(summary = "CREATE", description = "Cadastra um usuário")
+    @ResponseStatus(CREATED)
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
 
-    @GetMapping("/{username}")
-    @Operation(summary = "READ_All_TODO_BY_USERNAME", description = "Retorna uma lista de tarefas baseado em um usuario")
+    @GetMapping("/all")
+    @Operation(summary = "READ ALL USERS", description = "Retorna uma lista de usuários")
+    @ResponseStatus(OK)
+    public List<UserDto> getAllUsers() {
+        return userService.listAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "READ BY ID", description = "Retorna um usuário")
+    @ResponseStatus(OK)
+    public Optional<UserDto> getUserById(@PathVariable Long id) {
+        return userService.getUserByUserId(id);
+    }
+
+    @GetMapping("/{username}/todos/username")
+    @Operation(summary = "READ ALL TODOS BY USERNAME", description = "Retorna uma lista de tarefas baseado em um usuario")
     public ResponseEntity<List<Todo>> getTodosByUsername(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
+        if (user.isPresent()) {
+            List<Todo> todos = todoService.getTodosByUserName(user.get().getUserName());
+            return ResponseEntity.ok(todos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/todos/byid")
+    @Operation(summary = "READ_All_TODOS_BY_ID", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
+    public ResponseEntity<List<Todo>> getTodosById(@PathVariable Long id) {
+        Optional<UserDto> user = userService.getUserByUserId(id);
         if (user.isPresent()) {
             List<Todo> todos = todoService.getTodosByUserId(user.get().getId());
             return ResponseEntity.ok(todos);
@@ -52,34 +82,20 @@ public class UserController {
         }
     }
 
-    public ResponseEntity<User> findUserById(@PathVariable(value = "id") Long id) {
-        User user = userService.findUserById(id);
-        return ResponseEntity.ok().body(user);
+    @PutMapping("/{id}")
+    @Operation(summary = "UPDATE", description = "Atualiza um usuario")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateUser(@PathVariable Long id, @RequestBody User user){
+        userService.updateUser(id,user);
     }
 
-    @GetMapping
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
+    @DeleteMapping("/{id}")
+    @Operation(summary = "DELETE", description = "Deleta um usuario")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUserById(@PathVariable Long id){
+        userService.deleteUser(id);
     }
 
-    @GetMapping("/{email}/todos")
-    public ResponseEntity<List<TodoDto>> findTodosByUserEmail(@PathVariable String email) {
-        List<Todo> todos = todoService.findTodosByUserEmail(email);
-        ModelMapper modelMapper = new ModelMapper();
-        List<TodoDto> todoDtos = todos.stream()
-                .map(todo -> modelMapper.map(todo, TodoDto.class))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(todoDtos);
-    }
-    @GetMapping("/{name}/todos")
-    public ResponseEntity<List<TodoDto>> findTodosByUserName(@PathVariable String name) {
-        List<Todo> todos = todoService.getTodosByUserName(name);
-        ModelMapper modelMapper = new ModelMapper();
-        List<TodoDto> todoDtos = todos.stream()
-                .map(todo -> modelMapper.map(todo, TodoDto.class))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(todoDtos);
-    }
 }
 
 

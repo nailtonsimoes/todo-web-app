@@ -29,11 +29,11 @@ public class Todo implements Serializable {
     private String description;
 
     @Column(name = "dateForFinalize")
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateForFinalize;
 
     @Column(name = "finshed")
-    private Boolean finshed = false;
+    private Boolean finished = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
@@ -43,6 +43,6 @@ public class Todo implements Serializable {
         this.title = title;
         this.description = description;
         this.dateForFinalize = dateForFinilze;
-        this.finshed = finshed;
+        this.finished = finshed;
     }
 }
