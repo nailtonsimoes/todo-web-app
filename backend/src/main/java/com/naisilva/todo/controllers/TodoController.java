@@ -1,7 +1,6 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
-import com.naisilva.todo.domain.User;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -22,21 +18,36 @@ import java.util.Optional;
 @RequestMapping("/api/todos")
 public class TodoController {
     @Autowired
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @Autowired
-    private UserService userService;
+    private final UserService userService;
 
+    @Autowired
     public TodoController(TodoService todoService, UserService userService){
         this.todoService = todoService;
         this.userService = userService;
     }
 
-    @GetMapping(value = "/{id}")
+    @Operation(summary = "READ_ALL_BY_ID", description = "Retorna uma lista de tarefas baseado em um usuario")
+    @GetMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Todo> getTodosByUserId(@PathVariable Long userId) {
+        return todoService.getTodosByUserId(userId);
+    }
+
     @Operation(summary = "READ_BY_ID", description = "Retorna uma tarefa")
-    public ResponseEntity<Todo> findById(@PathVariable Long id) {
-        Todo todoResponse = todoService.findById(id);
-        return ResponseEntity.ok().body(todoResponse);
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Todo getTodoById(@PathVariable Long id) {
+        return todoService.findTodoById(id);
+    }
+
+    @Operation(summary = "CREATE", description = "Cria uma tarefa")
+    @PostMapping("/{userId}/todos")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo createTodo(@PathVariable Long userId, @RequestBody Todo todo) {
+        return todoService.createTodo(userId, todo);
     }
 
     /*
@@ -58,40 +69,17 @@ public class TodoController {
     }
      */
 
-    @PostMapping("/{userId}/todos")
-    public ResponseEntity<Todo> createTodo(@PathVariable Long userId, @RequestBody Todo todo) {
-        Optional<User> user = userService.getUserById(userId);
-        if (user.isPresent()) {
-            todo.setUser(user.get());
-            Todo createdTodo = todoService.createTodo(todo);
-            return ResponseEntity.created(URI.create("/users/" + userId + "/todos/" + createdTodo.getId())).body(createdTodo);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "READ_ALL", description = "Retorna uma lista de tarefas")
-    public List<Todo> listAllTodo() {
-        return todoService.listAll();
-    }
-
-    @PutMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @Operation(summary = "UPDATE", description = "Atualiza uma tarefa")
-    public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        Todo todoModel = todoService.updateTodo(id, todo);
-        return ResponseEntity
-                .ok()
-                .body(todoModel);
-    }
+   @Operation(summary = "UPDATE", description = "Atualiza uma tarefa")
+   @PutMapping(value = "/{id}")
+   @ResponseStatus(HttpStatus.ACCEPTED)
+   public Todo updateTodoById(@PathVariable Long id, @RequestBody Todo updatedTodo) {
+       return todoService.updateTodo(id, updatedTodo);
+   }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.GONE)
     @Operation(summary = "DELETE", description = "Deleta uma tarefa")
-    public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
+    public void deleteTodoById(@PathVariable Long id) {
         todoService.deleteTodo(id);
-        return ResponseEntity.noContent().build();
     }
 }

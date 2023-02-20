@@ -1,8 +1,10 @@
 package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.Todo;
+import com.naisilva.todo.domain.User;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
+import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,35 +15,61 @@ import java.util.Optional;
 public class TodoService {
     @Autowired
     TodoRepository todoRepository;
+    @Autowired
+    UserRepository userRepository;
 
-    public TodoService(TodoRepository todoRepository){
+    @Autowired
+    public TodoService(TodoRepository todoRepository, UserRepository userRepository){
         this.todoRepository = todoRepository;
+        this.userRepository = userRepository;
     }
 
-    public Todo createTodo(Todo todoRequest) {
-        return todoRepository.save(todoRequest);
+    public List<Todo> getTodosByUserId(Long userId) {
+        return todoRepository.findByUserId(userId);
     }
 
-    public Todo findById(Long id) {
-        Optional<Todo> todoResponse = todoRepository.findById(id);
-        return todoResponse.orElseThrow(
-                () -> new ObjectNotFoundException(
-                        "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
-                ));
+    public List<Todo> getTodosByUserName(String userName) {
+        return todoRepository.findByUser(userName);
     }
+
+    public List<Todo> findTodosByUserEmail(String email) {
+        return todoRepository.findByUserEmail(email);
+    }
+
+    public Todo createTodo(Long userId, Todo todo) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
+
+        Todo todoModel = new Todo();
+
+        todoModel.setTitle(todo.getTitle());
+        todoModel.setDescription(todo.getDescription());
+        todoModel.setFinshed(todo.getFinshed());
+        todoModel.setDateForFinalize(todo.getDateForFinalize());
+
+        todoModel.setUser(user);
+
+        return todoRepository.save(todoModel);
+    }
+
+    public Todo findTodoById(Long id) {
+        return todoRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+                "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
+        ));
+    }
+
 
     public List<Todo> listAll() {
         return todoRepository.findAll();
     }
 
     public Todo updateTodo(Long id, Todo todo) {
-        Todo todoModel = findById(id);
+        Todo todoModel = findTodoById(id);
 
         todoModel.setTitle(todo.getTitle());
-        todoModel.setFinshed(todo.getFinshed());
         todoModel.setDescription(todo.getDescription());
+        todoModel.setFinshed(todo.getFinshed());
         todoModel.setDateForFinalize(todo.getDateForFinalize());
-        todoModel.setUser(todo.getUser());
 
         return todoRepository.save(todoModel);
     }
@@ -64,7 +92,4 @@ public class TodoService {
     }
     */
 
-    public List<Todo> getTodosByUserId(Long userId) {
-        return todoRepository.findByUserId(userId);
-    }
 }

@@ -13,24 +13,30 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TB_TODO")
+@Table(name = "todos")
 public class Todo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", unique = true)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "dateForFinalize")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dateForFinalize;
 
+    @Column(name = "finshed")
     private Boolean finshed = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 
     public Todo(Long id, String title, String description, Date dateForFinilze, Boolean finshed){
