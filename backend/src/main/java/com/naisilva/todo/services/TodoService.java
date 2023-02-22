@@ -44,8 +44,8 @@ public class TodoService {
         return todoRepository.findByUserId(userId);
     }
 
-    public List<Todo> getTodosByUserName(String userName) {
-        return todoRepository.findByUser(userName);
+    public List<Todo> getTodosByUserName(String name) {
+        return todoRepository.findByUserName(name);
     }
 
     public List<Todo> findTodosByUserEmail(String email) {

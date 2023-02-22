@@ -36,8 +36,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserByUsername(String userName) {
-        return userRepository.findByUserName(userName);
+    public Optional<User> getUserByUserName(String name) {
+        return userRepository.findByName(name);
     }
 
     public Optional<UserDto> getUserByUserId(Long id) {
@@ -66,7 +66,7 @@ public class UserService {
                 .stream()
                 .map(user -> new UserDto(
                         user.getId(),
-                        user.getUserName(),
+                        user.getName(),
                         user.getPassword(),
                         user.getEmail(),
                         user.getToken(),
@@ -92,7 +92,7 @@ public class UserService {
                                 "Usuario não encontrado id: " + id + ", tipo: " + User.class.getName()
                         ));
 
-        userModel.setUserName(user.getUserName());
+        userModel.setName(user.getName());
         userModel.setEmail(user.getEmail());
         userModel.setPassword(user.getPassword());
         userModel.setToken(user.getToken());

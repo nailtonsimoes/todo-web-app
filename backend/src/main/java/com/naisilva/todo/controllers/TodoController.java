@@ -34,11 +34,18 @@ public class TodoController {
         this.userService = userService;
     }
 
-    @Operation(summary = "READ_ALL_BY_ID", description = "Retorna uma lista de tarefas baseado em um usuario")
-    @GetMapping("/{id}/list")
+    @Operation(summary = "READ_ALL_BY_ID", description = "Retorna uma lista de tarefas baseado em um ID de usuario")
+    @GetMapping("/{userId}/list")
     @ResponseStatus(HttpStatus.OK)
     public List<Todo> getTodosByUserId(@PathVariable Long userId) {
         return todoService.getTodosByUserId(userId);
+    }
+
+    @Operation(summary = "READ_ALL_BY_USERNAME", description = "Retorna uma lista de tarefas baseado em um nome de usuario")
+    @GetMapping("/{userName}/listAll")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Todo> getTodosByUserUserName(@PathVariable String userName) {
+        return todoService.getTodosByUserName(userName);
     }
 
     @Operation(summary = "READ_BY_ID", description = "Retorna uma tarefa")
@@ -49,7 +56,7 @@ public class TodoController {
     }
 
     @PostMapping("/{userId}/create")
-    @Operation(summary = "CREATE", description = "Cadastra um usuário")
+    @Operation(summary = "CREATE", description = "Cadastra uma tarefa baseada em um usuario")
     @ResponseStatus(CREATED)
     public Todo createTodo(@PathVariable Long userId,@RequestBody TodoDtoResquest todo) {
         return todoService.createTodo(userId,todo);

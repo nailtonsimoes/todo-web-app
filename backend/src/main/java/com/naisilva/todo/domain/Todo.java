@@ -37,7 +37,7 @@ public class Todo implements Serializable {
     private Boolean finished = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false)
+    @JoinColumn(name = "users_id")
     @JsonIgnore
     private User user;
 

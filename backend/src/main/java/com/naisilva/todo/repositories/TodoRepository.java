@@ -18,9 +18,9 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
    /* @Query("SELECT obj FROM Todo obj WHERE obj.finalizado = true ORDER BY obj.dataParaFinalizar")
     List<Todo> findAllClose(); */
 
-    List<Todo> findByUserId(Long userId);
+    List<Todo> findByUserId(Long id);
 
     List<Todo> findByUserEmail(String email);
 
-    List<Todo> findByUser(String name);
+    List<Todo> findByUserName(String name);
 }

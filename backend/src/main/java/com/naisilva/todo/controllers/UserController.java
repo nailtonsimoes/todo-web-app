@@ -58,22 +58,22 @@ public class UserController {
         return userService.getUserByUserId(id);
     }
 
-    @GetMapping("/{username}/todos/username")
+    @GetMapping("/{userName}/allTodos/userName")
     @Operation(summary = "READ ALL TODOS BY USERNAME", description = "Retorna uma lista de tarefas baseado em um usuario")
-    public ResponseEntity<List<Todo>> getTodosByUsername(@PathVariable String username) {
-        Optional<User> user = userService.getUserByUsername(username);
+    public ResponseEntity<List<Todo>> getTodosByUsername(@PathVariable String userName) {
+        Optional<User> user = userService.getUserByUserName(userName);
         if (user.isPresent()) {
-            List<Todo> todos = todoService.getTodosByUserName(user.get().getUserName());
+            List<Todo> todos = todoService.getTodosByUserName(user.get().getName());
             return ResponseEntity.ok(todos);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/{id}/todos/byid")
+    @GetMapping("/{userId}/todos/byid")
     @Operation(summary = "READ_All_TODOS_BY_ID", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
-    public ResponseEntity<List<Todo>> getTodosById(@PathVariable Long id) {
-        Optional<UserDto> user = userService.getUserByUserId(id);
+    public ResponseEntity<List<Todo>> getTodosById(@PathVariable Long userId) {
+        Optional<UserDto> user = userService.getUserByUserId(userId);
         if (user.isPresent()) {
             List<Todo> todos = todoService.getTodosByUserId(user.get().getId());
             return ResponseEntity.ok(todos);

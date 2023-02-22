@@ -18,12 +18,12 @@ public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     @JsonIgnore
     private Long id;
 
-    @Column(name = "userName")
-    private String userName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "email")
     private String email;
@@ -38,8 +38,8 @@ public class User  {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todos = new ArrayList<>();
 
-    public User (Long id, String userName, String email, String password ,String token){
-        this.userName = userName;
+    public User (Long id, String name, String email, String password , String token){
+        this.name = name;
         this.email = email;
         this.password = password;
         this.token = token;
