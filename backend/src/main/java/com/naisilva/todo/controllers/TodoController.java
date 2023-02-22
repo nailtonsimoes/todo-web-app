@@ -1,6 +1,9 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
+import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
+import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin("*")
 @RestController
@@ -30,7 +35,7 @@ public class TodoController {
     }
 
     @Operation(summary = "READ_ALL_BY_ID", description = "Retorna uma lista de tarefas baseado em um usuario")
-    @GetMapping("/{userId}")
+    @GetMapping("/{id}/list")
     @ResponseStatus(HttpStatus.OK)
     public List<Todo> getTodosByUserId(@PathVariable Long userId) {
         return todoService.getTodosByUserId(userId);
@@ -43,11 +48,11 @@ public class TodoController {
         return todoService.findTodoById(id);
     }
 
-    @Operation(summary = "CREATE", description = "Cria uma tarefa")
-    @PostMapping("/{userId}/todos")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Todo createTodo(@PathVariable Long userId, @RequestBody Todo todo) {
-        return todoService.createTodo(userId, todo);
+    @PostMapping("/{userId}/create")
+    @Operation(summary = "CREATE", description = "Cadastra um usuário")
+    @ResponseStatus(CREATED)
+    public Todo createTodo(@PathVariable Long userId,@RequestBody TodoDtoResquest todo) {
+        return todoService.createTodo(userId,todo);
     }
 
     /*
@@ -70,13 +75,13 @@ public class TodoController {
      */
 
    @Operation(summary = "UPDATE", description = "Atualiza uma tarefa")
-   @PutMapping(value = "/{id}")
+   @PutMapping(value = "/{id}/update")
    @ResponseStatus(HttpStatus.ACCEPTED)
    public Todo updateTodoById(@PathVariable Long id, @RequestBody Todo updatedTodo) {
        return todoService.updateTodo(id, updatedTodo);
    }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{id}/delete")
     @ResponseStatus(HttpStatus.GONE)
     @Operation(summary = "DELETE", description = "Deleta uma tarefa")
     public void deleteTodoById(@PathVariable Long id) {

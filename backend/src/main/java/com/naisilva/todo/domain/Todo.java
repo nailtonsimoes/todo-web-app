@@ -1,6 +1,7 @@
 package com.naisilva.todo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Todo implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     public Todo(Long id, String title, String description, Date dateForFinilze, Boolean finshed){
