@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CreateComponent } from './components/create/create.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UpdateComponent } from './components/update/update.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UpdateComponent } from './components/update/update.component';
     ReadAllComponent,
     FinalizadosComponent,
     CreateComponent,
-    UpdateComponent
+    UpdateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -38,6 +38,9 @@ public class User  {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todos = new ArrayList<>();
 
+    @ManyToMany
+    private List<Role> roles;
+
     public User (Long id, String name, String email, String password , String token){
         this.name = name;
         this.email = email;

@@ -1,4 +1,4 @@
-package com.naisilva.todo.services;
+package com.naisilva.todo.services.userServices;
 
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
@@ -33,6 +33,11 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        Optional<User> existUser = userRepository.findByName(user.getName());
+
+        if(existUser.get() != null){
+            throw new RuntimeException("usuario ja existe");
+        }
         return userRepository.save(user);
     }
 

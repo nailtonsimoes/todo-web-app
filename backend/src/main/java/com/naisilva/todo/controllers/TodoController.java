@@ -1,23 +1,20 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
-import com.naisilva.todo.domain.User;
-import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.services.TodoService;
-import com.naisilva.todo.services.UserService;
+import com.naisilva.todo.services.userServices.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-@CrossOrigin("*")
+
 @RestController
 @Tag(name="Rotas Tarefas")
 @RequestMapping("/api/todos")

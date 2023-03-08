@@ -2,9 +2,11 @@ package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.userDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.userDtos.UserDto;
 import com.naisilva.todo.services.TodoService;
-import com.naisilva.todo.services.UserService;
+import com.naisilva.todo.services.userServices.CreateRoleUserService;
+import com.naisilva.todo.services.userServices.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -19,7 +21,6 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
-@CrossOrigin("*")
 @RestController
 @Tag(name="Rotas Usuarios")
 @RequestMapping("/api/users")
@@ -30,19 +31,29 @@ public class UserController {
     private final TodoService todoService;
 
     @Autowired
-    public UserController(UserService userService, TodoService todoService) {
+    private final CreateRoleUserService createRoleUserService;
+
+    @Autowired
+    public UserController(UserService userService, TodoService todoService, CreateRoleUserService createRoleUserService) {
         this.userService = userService;
         this.todoService = todoService;
+        this.createRoleUserService = createRoleUserService;
     }
 
 
-    @PostMapping
+    @PostMapping("/create")
     @Operation(summary = "CREATE", description = "Cadastra um usuário")
     @ResponseStatus(CREATED)
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
+    @PostMapping("/role")
+    @Operation(summary = "CREATE", description = "Cadastra uma role")
+    @ResponseStatus(CREATED)
+    public User role(@RequestBody CreateUserRoleDto createUserRoleDto) {
+        return createRoleUserService.execute(createUserRoleDto);
+    }
 
     @GetMapping("/all")
     @Operation(summary = "READ ALL USERS", description = "Retorna uma lista de usuários")
