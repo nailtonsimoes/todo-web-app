@@ -37,7 +37,7 @@ public class DbService {
                 null,
                 "osvaldo",
                 "osvaldo@email.com",
-                "654321",
+                "123456",
                 "asasas"
                 );
 

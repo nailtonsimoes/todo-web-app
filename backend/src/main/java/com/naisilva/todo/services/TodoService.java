@@ -27,22 +27,23 @@ public class TodoService {
         this.userRepository = userRepository;
     }
 
-    public TodoDtoResponse createTodo(Long userId, TodoDtoResquest todo) {
+    public TodoDtoResponse createTodo(Long userId, TodoDtoResquest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
 
         Todo todoModel = new Todo();
 
-        todoModel.setTitle(todo.getTitle());
-        todoModel.setDescription(todo.getDescription());
-        todoModel.setDateForFinalize(todo.getDateForFinalize());
-        todoModel.setFinished(todo.getFinished());
+        todoModel.setTitle(request.getTitle());
+        todoModel.setDescription(request.getDescription());
+        todoModel.setDateForFinalize(request.getDateForFinalize());
+        todoModel.setFinished(request.getFinished());
         todoModel.setUser(user);
 
         todoRepository.save(todoModel);
         TodoDtoResponse response = new TodoDtoResponse();
 
-        BeanUtils.copyProperties(todo, response);
+        BeanUtils.copyProperties(todoModel, response);
+        response.setUserId(userId);
 
         return response;
     }
@@ -94,6 +95,7 @@ public class TodoService {
 
         TodoDtoResponse response = new TodoDtoResponse();
         BeanUtils.copyProperties(todo, response);
+        response.setUserId(todo.getUser().getId());
 
         return response;
     }
@@ -102,21 +104,22 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public TodoDtoResponse updateTodo(Long id, Todo todoRequest) {
+    public TodoDtoResponse updateTodo(Long id, TodoDtoResquest todoRequest) {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
-                                "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
+                                "Tarefa não encontrado id: " + id + ", tipo: " + Todo.class.getName()
                         ));
 
         todo.setTitle(todoRequest.getTitle());
         todo.setDescription(todoRequest.getDescription());
         todo.setFinished(todoRequest.getFinished());
         todo.setDateForFinalize(todoRequest.getDateForFinalize());
-
         todoRepository.save(todo);
+
         TodoDtoResponse response = new TodoDtoResponse();
         BeanUtils.copyProperties(todo, response);
+        response.setUserId(todo.getUser().getId());
 
         return response;
     }

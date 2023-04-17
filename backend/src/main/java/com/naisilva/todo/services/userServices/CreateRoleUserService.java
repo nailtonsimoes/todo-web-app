@@ -18,14 +18,14 @@ public class CreateRoleUserService {
     UserRepository userRepository;
 
     public User execute(CreateUserRoleDto createUserRoleDto){
+
         Optional<User> userExists = userRepository.findById(createUserRoleDto.getUserId());
-        List<Role> roles = new ArrayList<>();
 
         if(userExists.isEmpty()) {
             throw new RuntimeException("Usuario Não existe!");
         }
 
-        roles = createUserRoleDto.getIdsRoles().stream()
+        List<Role> roles = createUserRoleDto.getIdsRoles().stream()
                 .map(
                         role -> {
                             return new Role(role);

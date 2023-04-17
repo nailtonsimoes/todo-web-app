@@ -82,8 +82,8 @@ public class TodoController {
     @Operation(summary = "Update a TODO", description = "Atualiza uma tarefa")
     @PutMapping(value = "/{id}/update")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public TodoDtoResponse updateTodoById(@PathVariable Long id, @RequestBody Todo updatedTodo) {
-        return todoService.updateTodo(id, updatedTodo);
+    public TodoDtoResponse updateTodoById(@PathVariable Long id, @RequestBody TodoDtoResquest request) {
+        return todoService.updateTodo(id, request);
     }
 
     @Operation(summary = "Delete a TODO by TodoId", description = "Deleta uma tarefa")

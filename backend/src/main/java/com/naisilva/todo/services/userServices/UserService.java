@@ -2,7 +2,8 @@ package com.naisilva.todo.services.userServices;
 
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
-import com.naisilva.todo.dtos.userDtos.UserDto;
+import com.naisilva.todo.dtos.userDtos.UserRequestDto;
+import com.naisilva.todo.dtos.userDtos.UserResponseDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
@@ -32,12 +33,16 @@ public class UserService {
         this.todoRepository = todoRepository;
     }
 
-    public User saveUser(User user) {
-        Optional<User> existUser = userRepository.findByName(user.getName());
+    public User saveUser(UserRequestDto request) {
+        Optional<User> existUser = userRepository.findByName(request.getName());
 
-        if(existUser.get() != null){
+        if(existUser != null){
             throw new RuntimeException("usuario ja existe");
         }
+
+        User user = new User();
+        BeanUtils.copyProperties(request, user);
+
         return userRepository.save(user);
     }
 
@@ -45,14 +50,14 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public Optional<UserDto> getUserByUserId(Long id) {
+    public Optional<UserResponseDto> getUserByUserId(Long id) {
         Optional<User> userModelOptional = userRepository.findById(id);
         if (userModelOptional.isPresent()) {
 
             User user = userModelOptional.get();
-            UserDto userDto = new UserDto();
+            UserResponseDto userResponseDto = new UserResponseDto();
 
-            BeanUtils.copyProperties(user, userDto);
+            BeanUtils.copyProperties(user, userResponseDto);
 
             List<TodoDtoResponse> todos = user.getTodos().stream()
                     .map(todoModel -> {
@@ -62,21 +67,21 @@ public class UserService {
                     })
                     .collect(Collectors.toList());
 
-            userDto.setTodos(todos);
+            userResponseDto.setTodos(todos);
 
-            return Optional.of(userDto);
+            return Optional.of(userResponseDto);
 
         } else {
             return Optional.empty();
         }
     }
 
-    public List<UserDto> listAllUsers() {
+    public List<UserResponseDto> listAllUsers() {
         List<User> listUsersDB = userRepository.findAll();
 
-        List<UserDto> listUsersResponse = listUsersDB
+        List<UserResponseDto> listUsersResponse = listUsersDB
                 .stream()
-                .map(user -> new UserDto(
+                .map(user -> new UserResponseDto(
                         user.getId(),
                         user.getName(),
                         user.getPassword(),
@@ -98,17 +103,16 @@ public class UserService {
         return listUsersResponse;
     }
 
-    public void updateUser(Long id, User user) {
+    public void updateUser(Long id, UserRequestDto request) {
         User userModel = userRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
                                 "Usuario não encontrado id: " + id + ", tipo: " + User.class.getName()
                         ));
 
-        userModel.setName(user.getName());
-        userModel.setEmail(user.getEmail());
-        userModel.setPassword(user.getPassword());
-        userModel.setToken(user.getToken());
+        userModel.setName(request.getName());
+        userModel.setEmail(request.getEmail());
+        userModel.setPassword(request.getPassword());
 
         userRepository.save(userModel);
     }

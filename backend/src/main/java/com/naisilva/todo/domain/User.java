@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +26,17 @@ public class User  {
     private Long id;
 
     @Column(name = "name")
+    @NotBlank(message = "O nome é obrigatório")
     private String name;
 
     @Column(name = "email")
+    @Email(message = "E-mail inválido")
+    @NotBlank(message = "O e-mail é obrigatório")
     private String email;
 
     @Column(name = "password")
+    @NotBlank(message = "A senha é obrigatória")
+    @Size(min = 3, message = "A senha deve ter no mínimo 3 caracteres")
     private String password;
 
     @Column(name = "token")
@@ -38,7 +46,7 @@ public class User  {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todos = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     public User (Long id, String name, String email, String password , String token){
