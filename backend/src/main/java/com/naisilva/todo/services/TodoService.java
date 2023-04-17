@@ -7,10 +7,12 @@ import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TodoService {
@@ -25,7 +27,7 @@ public class TodoService {
         this.userRepository = userRepository;
     }
 
-    public Todo createTodo(Long userId, TodoDtoResquest todo) {
+    public TodoDtoResponse createTodo(Long userId, TodoDtoResquest todo) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
 
@@ -37,15 +39,44 @@ public class TodoService {
         todoModel.setFinished(todo.getFinished());
         todoModel.setUser(user);
 
-        return todoRepository.save(todoModel);
+        todoRepository.save(todoModel);
+        TodoDtoResponse response = new TodoDtoResponse();
+
+        BeanUtils.copyProperties(todo, response);
+
+        return response;
     }
 
-    public List<Todo> getTodosByUserId(Long userId) {
-        return todoRepository.findByUserId(userId);
+    public List<TodoDtoResponse> getTodosByUserId(Long userId) {
+        List<Todo> listTodosDB = todoRepository.findByUserId(userId);
+
+        List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
+                todo -> new TodoDtoResponse(
+                        todo.getId(),
+                        todo.getTitle(),
+                        todo.getDescription(),
+                        todo.getDateForFinalize(),
+                        todo.getFinished(),
+                        todo.getUser().getId()
+                )
+        ).collect(Collectors.toList());
+        return listTodosResponse;
     }
 
-    public List<Todo> getTodosByUserName(String name) {
-        return todoRepository.findByUserName(name);
+    public List<TodoDtoResponse> getTodosByUserName(String name) {
+        List<Todo> listTodosDB = todoRepository.findByUserName(name);
+
+        List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
+                todo -> new TodoDtoResponse(
+                        todo.getId(),
+                        todo.getTitle(),
+                        todo.getDescription(),
+                        todo.getDateForFinalize(),
+                        todo.getFinished(),
+                        todo.getUser().getId()
+                )
+        ).collect(Collectors.toList());
+        return listTodosResponse;
     }
 
     public List<Todo> findTodosByUserEmail(String email) {
@@ -54,25 +85,40 @@ public class TodoService {
 
 
 
-    public Todo findTodoById(Long id) {
-        return todoRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+    public TodoDtoResponse findTodoById(Long id) {
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(
+                        () -> new ObjectNotFoundException(
                 "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
         ));
+
+        TodoDtoResponse response = new TodoDtoResponse();
+        BeanUtils.copyProperties(todo, response);
+
+        return response;
     }
 
     public List<Todo> listAll() {
         return todoRepository.findAll();
     }
 
-    public Todo updateTodo(Long id, Todo todo) {
-        Todo todoModel = findTodoById(id);
+    public TodoDtoResponse updateTodo(Long id, Todo todoRequest) {
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(
+                        () -> new ObjectNotFoundException(
+                                "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
+                        ));
 
-        todoModel.setTitle(todo.getTitle());
-        todoModel.setDescription(todo.getDescription());
-        todoModel.setFinished(todo.getFinished());
-        todoModel.setDateForFinalize(todo.getDateForFinalize());
+        todo.setTitle(todoRequest.getTitle());
+        todo.setDescription(todoRequest.getDescription());
+        todo.setFinished(todoRequest.getFinished());
+        todo.setDateForFinalize(todoRequest.getDateForFinalize());
 
-        return todoRepository.save(todoModel);
+        todoRepository.save(todo);
+        TodoDtoResponse response = new TodoDtoResponse();
+        BeanUtils.copyProperties(todo, response);
+
+        return response;
     }
 
     public void deleteTodo(Long id) {

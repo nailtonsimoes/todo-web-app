@@ -48,26 +48,33 @@ public class UserService {
     public Optional<UserDto> getUserByUserId(Long id) {
         Optional<User> userModelOptional = userRepository.findById(id);
         if (userModelOptional.isPresent()) {
-            User userModel = userModelOptional.get();
-            UserDto user = new UserDto();
-            BeanUtils.copyProperties(userModel, user);
-            List<TodoDtoResponse> todos = userModel.getTodos().stream()
+
+            User user = userModelOptional.get();
+            UserDto userDto = new UserDto();
+
+            BeanUtils.copyProperties(user, userDto);
+
+            List<TodoDtoResponse> todos = user.getTodos().stream()
                     .map(todoModel -> {
                         TodoDtoResponse todo = new TodoDtoResponse();
                         BeanUtils.copyProperties(todoModel, todo);
                         return todo;
                     })
                     .collect(Collectors.toList());
-            user.setTodos(todos);
-            return Optional.of(user);
+
+            userDto.setTodos(todos);
+
+            return Optional.of(userDto);
+
         } else {
             return Optional.empty();
         }
     }
 
     public List<UserDto> listAllUsers() {
-        List<User> listUserModel = userRepository.findAll();
-        List<UserDto> listUserExit = listUserModel
+        List<User> listUsersDB = userRepository.findAll();
+
+        List<UserDto> listUsersResponse = listUsersDB
                 .stream()
                 .map(user -> new UserDto(
                         user.getId(),
@@ -83,11 +90,12 @@ public class UserService {
                                                 todo.getTitle(),
                                                 todo.getDescription(),
                                                 todo.getDateForFinalize(),
-                                                todo.getFinished()
+                                                todo.getFinished(),
+                                                todo.getUser().getId()
                                         )
                                 ).collect(Collectors.toList()))).collect(Collectors.toList());
 
-        return listUserExit;
+        return listUsersResponse;
     }
 
     public void updateUser(Long id, User user) {

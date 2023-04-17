@@ -2,6 +2,7 @@ package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.userDtos.UserDto;
 import com.naisilva.todo.services.TodoService;
@@ -42,51 +43,51 @@ public class UserController {
 
 
     @PostMapping("/create")
-    @Operation(summary = "CREATE", description = "Cadastra um usuário")
+    @Operation(summary = "Create a User", description = "Cadastra um usuário")
     @ResponseStatus(CREATED)
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
     @PostMapping("/role")
-    @Operation(summary = "CREATE", description = "Cadastra uma role")
+    @Operation(summary = "Create a Role", description = "Cadastra uma role")
     @ResponseStatus(CREATED)
     public User role(@RequestBody CreateUserRoleDto createUserRoleDto) {
         return createRoleUserService.execute(createUserRoleDto);
     }
 
     @GetMapping("/all")
-    @Operation(summary = "READ ALL USERS", description = "Retorna uma lista de usuários")
+    @Operation(summary = "Find All Users", description = "Retorna uma lista de usuários")
     @ResponseStatus(OK)
     public List<UserDto> getAllUsers() {
         return userService.listAllUsers();
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "READ BY ID", description = "Retorna um usuário")
+    @Operation(summary = "Find a USER by Id", description = "Retorna um usuário")
     @ResponseStatus(OK)
     public Optional<UserDto> getUserById(@PathVariable Long id) {
         return userService.getUserByUserId(id);
     }
 
     @GetMapping("/{userName}/allTodos/userName")
-    @Operation(summary = "READ ALL TODOS BY USERNAME", description = "Retorna uma lista de tarefas baseado em um usuario")
-    public ResponseEntity<List<Todo>> getTodosByUsername(@PathVariable String userName) {
+    @Operation(summary = "Find All TODOS by UserName", description = "Retorna uma lista de tarefas baseado em um usuario")
+    public ResponseEntity<List<TodoDtoResponse>> getTodosByUsername(@PathVariable String userName) {
         Optional<User> user = userService.getUserByUserName(userName);
         if (user.isPresent()) {
-            List<Todo> todos = todoService.getTodosByUserName(user.get().getName());
+            List<TodoDtoResponse> todos = todoService.getTodosByUserName(user.get().getName());
             return ResponseEntity.ok(todos);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/{userId}/todos/byid")
-    @Operation(summary = "READ_All_TODOS_BY_ID", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
-    public ResponseEntity<List<Todo>> getTodosById(@PathVariable Long userId) {
+    @GetMapping("/{userId}/allTodos/byUserId")
+    @Operation(summary = "Find All TODOS by UserId", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
+    public ResponseEntity<List<TodoDtoResponse>> getTodosById(@PathVariable Long userId) {
         Optional<UserDto> user = userService.getUserByUserId(userId);
         if (user.isPresent()) {
-            List<Todo> todos = todoService.getTodosByUserId(user.get().getId());
+            List<TodoDtoResponse> todos = todoService.getTodosByUserId(user.get().getId());
             return ResponseEntity.ok(todos);
         } else {
             return ResponseEntity.notFound().build();
@@ -94,14 +95,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "UPDATE", description = "Atualiza um usuario")
+    @Operation(summary = "Update a User", description = "Atualiza um usuario")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable Long id, @RequestBody User user){
         userService.updateUser(id,user);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "DELETE", description = "Deleta um usuario")
+    @Operation(summary = "Delete a User", description = "Deleta um usuario")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@PathVariable Long id){
         userService.deleteUser(id);

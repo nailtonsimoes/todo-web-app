@@ -19,7 +19,8 @@ public class TodoDtoResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateForFinalize;
     private boolean finished;
-    private User user;
+
+    private Long userId;
 
     public TodoDtoResponse(Long id, String title, String description, Date dateForFinalize, boolean finished) {
         this.id = id;

@@ -1,6 +1,7 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.Todo;
+import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.userServices.UserService;
@@ -16,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@Tag(name="Rotas Tarefas")
+@Tag(name = "Rotas Tarefas")
 @RequestMapping("/api/todos")
 public class TodoController {
     @Autowired
@@ -26,37 +27,37 @@ public class TodoController {
     private final UserService userService;
 
     @Autowired
-    public TodoController(TodoService todoService, UserService userService){
+    public TodoController(TodoService todoService, UserService userService) {
         this.todoService = todoService;
         this.userService = userService;
     }
 
-    @Operation(summary = "READ_ALL_BY_ID", description = "Retorna uma lista de tarefas baseado em um ID de usuario")
-    @GetMapping("/{userId}/list")
+    @Operation(summary = "Find All TODOS by UserId", description = "Retorna uma lista de tarefas baseado em um ID de usuario")
+    @GetMapping("/{userId}/listAllByUserId")
     @ResponseStatus(HttpStatus.OK)
-    public List<Todo> getTodosByUserId(@PathVariable Long userId) {
+    public List<TodoDtoResponse> getTodosByUserId(@PathVariable Long userId) {
         return todoService.getTodosByUserId(userId);
     }
 
-    @Operation(summary = "READ_ALL_BY_USERNAME", description = "Retorna uma lista de tarefas baseado em um nome de usuario")
-    @GetMapping("/{userName}/listAll")
+    @Operation(summary = "Find All TODOS by UserName", description = "Retorna uma lista de tarefas baseado em um nome de usuario")
+    @GetMapping("/{userName}/listAllByUserName")
     @ResponseStatus(HttpStatus.OK)
-    public List<Todo> getTodosByUserUserName(@PathVariable String userName) {
+    public List<TodoDtoResponse> getTodosByUserUserName(@PathVariable String userName) {
         return todoService.getTodosByUserName(userName);
     }
 
-    @Operation(summary = "READ_BY_ID", description = "Retorna uma tarefa")
+    @Operation(summary = "Find a TODO by TodoId", description = "Retorna uma tarefa")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Todo getTodoById(@PathVariable Long id) {
+    public TodoDtoResponse getTodoById(@PathVariable Long id) {
         return todoService.findTodoById(id);
     }
 
+    @Operation(summary = "Create a TODO", description = "Cadastra uma tarefa baseada em um usuario")
     @PostMapping("/{userId}/create")
-    @Operation(summary = "CREATE", description = "Cadastra uma tarefa baseada em um usuario")
     @ResponseStatus(CREATED)
-    public Todo createTodo(@PathVariable Long userId,@RequestBody TodoDtoResquest todo) {
-        return todoService.createTodo(userId,todo);
+    public TodoDtoResponse createTodo(@PathVariable Long userId, @RequestBody TodoDtoResquest todo) {
+        return todoService.createTodo(userId, todo);
     }
 
     /*
@@ -78,16 +79,16 @@ public class TodoController {
     }
      */
 
-   @Operation(summary = "UPDATE", description = "Atualiza uma tarefa")
-   @PutMapping(value = "/{id}/update")
-   @ResponseStatus(HttpStatus.ACCEPTED)
-   public Todo updateTodoById(@PathVariable Long id, @RequestBody Todo updatedTodo) {
-       return todoService.updateTodo(id, updatedTodo);
-   }
+    @Operation(summary = "Update a TODO", description = "Atualiza uma tarefa")
+    @PutMapping(value = "/{id}/update")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public TodoDtoResponse updateTodoById(@PathVariable Long id, @RequestBody Todo updatedTodo) {
+        return todoService.updateTodo(id, updatedTodo);
+    }
 
+    @Operation(summary = "Delete a TODO by TodoId", description = "Deleta uma tarefa")
     @DeleteMapping(value = "/{id}/delete")
     @ResponseStatus(HttpStatus.GONE)
-    @Operation(summary = "DELETE", description = "Deleta uma tarefa")
     public void deleteTodoById(@PathVariable Long id) {
         todoService.deleteTodo(id);
     }
