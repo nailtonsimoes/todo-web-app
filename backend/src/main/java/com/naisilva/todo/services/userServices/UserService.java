@@ -10,6 +10,7 @@ import com.naisilva.todo.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,12 +34,18 @@ public class UserService {
         this.todoRepository = todoRepository;
     }
 
-    public User saveUser(UserRequestDto request) {
-        Optional<User> existUser = userRepository.findByName(request.getName());
+    private BCryptPasswordEncoder passwordEncoder (){
+        return new BCryptPasswordEncoder();
+    }
 
-        if(existUser != null){
+    public User saveUser(UserRequestDto request) {
+        Optional<User> existingUser = userRepository.findByName(request.getName());
+
+        if(existingUser.isPresent()){
             throw new RuntimeException("usuario ja existe");
         }
+
+        request.setPassword(passwordEncoder().encode(request.getPassword()));
 
         User user = new User();
         BeanUtils.copyProperties(request, user);

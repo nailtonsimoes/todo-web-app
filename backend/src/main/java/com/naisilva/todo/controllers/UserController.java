@@ -1,5 +1,6 @@
 package com.naisilva.todo.controllers;
 
+import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.CreateUserRoleDto;
@@ -49,11 +50,18 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @PostMapping("/role")
-    @Operation(summary = "Create a Role", description = "Cadastra uma role")
+    @PostMapping("/setRole")
+    @Operation(summary = "Set a RoleUser", description = "Adiciona uma role a um User")
     @ResponseStatus(CREATED)
-    public User role(@RequestBody CreateUserRoleDto createUserRoleDto) {
+    public User setRole(@RequestBody CreateUserRoleDto createUserRoleDto) {
         return createRoleUserService.execute(createUserRoleDto);
+    }
+
+    @PostMapping("/createRole")
+    @Operation(summary = "Create a RoleUser", description = "Cadastra uma role")
+    @ResponseStatus(CREATED)
+    public Role createRole(@RequestBody String name) {
+        return createRoleUserService.createRole(name);
     }
 
     @GetMapping("/all")

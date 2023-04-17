@@ -11,7 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserRoleDto {
+
     private Long userId;
 
     private List<Long> idsRoles;
+
 }
