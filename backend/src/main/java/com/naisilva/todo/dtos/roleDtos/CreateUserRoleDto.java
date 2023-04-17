@@ -1,4 +1,4 @@
-package com.naisilva.todo.dtos.userDtos;
+package com.naisilva.todo.dtos.roleDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

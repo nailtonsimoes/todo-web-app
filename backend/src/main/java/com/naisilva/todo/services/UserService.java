@@ -1,4 +1,4 @@
-package com.naisilva.todo.services.userServices;
+package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;

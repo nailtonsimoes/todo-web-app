@@ -1,14 +1,12 @@
 package com.naisilva.todo.controllers;
 
-import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
-import com.naisilva.todo.dtos.userDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
 import com.naisilva.todo.dtos.userDtos.UserResponseDto;
 import com.naisilva.todo.services.TodoService;
-import com.naisilva.todo.services.userServices.CreateRoleUserService;
-import com.naisilva.todo.services.userServices.UserService;
+import com.naisilva.todo.services.RoleService;
+import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,9 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
-
 @RestController
 @Tag(name="Rotas Usuarios")
 @RequestMapping("/api/users")
@@ -33,47 +28,29 @@ public class UserController {
     private final TodoService todoService;
 
     @Autowired
-    private final CreateRoleUserService createRoleUserService;
-
-    @Autowired
-    public UserController(UserService userService, TodoService todoService, CreateRoleUserService createRoleUserService) {
+    public UserController(UserService userService, TodoService todoService, RoleService roleService) {
         this.userService = userService;
         this.todoService = todoService;
-        this.createRoleUserService = createRoleUserService;
     }
 
 
     @PostMapping("/create")
     @Operation(summary = "Create a User", description = "Cadastra um usuário")
-    @ResponseStatus(CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody UserRequestDto user) {
         return userService.saveUser(user);
     }
 
-    @PostMapping("/setRole")
-    @Operation(summary = "Set a RoleUser", description = "Adiciona uma role a um User")
-    @ResponseStatus(CREATED)
-    public User setRole(@RequestBody CreateUserRoleDto createUserRoleDto) {
-        return createRoleUserService.execute(createUserRoleDto);
-    }
-
-    @PostMapping("/createRole")
-    @Operation(summary = "Create a RoleUser", description = "Cadastra uma role")
-    @ResponseStatus(CREATED)
-    public Role createRole(@RequestBody String name) {
-        return createRoleUserService.createRole(name);
-    }
-
     @GetMapping("/all")
     @Operation(summary = "Find All Users", description = "Retorna uma lista de usuários")
-    @ResponseStatus(OK)
+    @ResponseStatus(HttpStatus.OK)
     public List<UserResponseDto> getAllUsers() {
         return userService.listAllUsers();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Find a USER by Id", description = "Retorna um usuário")
-    @ResponseStatus(OK)
+    @ResponseStatus(HttpStatus.OK)
     public Optional<UserResponseDto> getUserById(@PathVariable Long id) {
         return userService.getUserByUserId(id);
     }

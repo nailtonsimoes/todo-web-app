@@ -1,7 +1,9 @@
 package com.naisilva.todo.services;
 
+import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,18 @@ import java.util.Arrays;
 @Service
 public class DbService {
 
+    @Autowired
     private final TodoRepository todoRepository;
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
+    private final RoleRepository roleRepository;
 
-    public DbService(TodoRepository todoRepository, UserRepository userRepository) {
+    @Autowired
+    public DbService (TodoRepository todoRepository, UserRepository userRepository, RoleRepository roleRepository) {
         this.todoRepository = todoRepository;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostConstruct
@@ -42,6 +50,11 @@ public class DbService {
                 );
 
         userRepository.saveAll(Arrays.asList(u1, u2));
+
+        Role role1 = new Role(null ,"USER");
+        Role role2 = new Role(null ,"ADMIN");
+
+        roleRepository.saveAll(Arrays.asList(role1, role2));
 
         Todo t1 = new Todo(null
                 ,"Fazer back end"

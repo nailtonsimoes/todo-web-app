@@ -1,10 +1,9 @@
 package com.naisilva.todo.controllers;
 
-import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.services.TodoService;
-import com.naisilva.todo.services.userServices.UserService;
+import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

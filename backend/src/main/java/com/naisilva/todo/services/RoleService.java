@@ -1,20 +1,20 @@
-package com.naisilva.todo.services.userServices;
+package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.User;
-import com.naisilva.todo.dtos.userDtos.CreateUserRoleDto;
+import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
+import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CreateRoleUserService {
+public class RoleService {
     @Autowired
     UserRepository userRepository;
 
@@ -45,9 +45,13 @@ public class CreateRoleUserService {
         return user;
     }
 
-    public Role createRole(String name) {
+    public Role createRole(RoleDtoRequest request) {
         Role role = new Role();
-        role.setName(name);
+        role.setName(request.getName());
         return roleRepository.save(role);
+    }
+
+    public List<Role> listAllRoles() {
+        return roleRepository.findAll();
     }
 }
