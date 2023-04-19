@@ -3,6 +3,8 @@ package com.naisilva.todo.services;
 import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
+import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
@@ -25,10 +27,14 @@ public class DbService {
     private final RoleRepository roleRepository;
 
     @Autowired
-    public DbService (TodoRepository todoRepository, UserRepository userRepository, RoleRepository roleRepository) {
+    private final RoleService roleService;
+
+    @Autowired
+    public DbService (TodoRepository todoRepository, UserRepository userRepository, RoleRepository roleRepository, RoleService roleService) {
         this.todoRepository = todoRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @PostConstruct
@@ -36,8 +42,8 @@ public class DbService {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         User u1 = new User(null,
-                "tangonelson",
-                "tangonelson@email.com",
+                "nelson",
+                "nelson@email.com",
                 "123456",
                 "token");
 
@@ -49,12 +55,15 @@ public class DbService {
                 "asasas"
                 );
 
+        Role r1 = roleService.createRole(new RoleDtoRequest("ADMIN"));
+        Role r2 = roleService.createRole(new RoleDtoRequest("USER"));
+
+        u1.getRoles().add(r1);
+        u2.getRoles().add(r2);
+
         userRepository.saveAll(Arrays.asList(u1, u2));
 
-        Role role1 = new Role(null ,"USER");
-        Role role2 = new Role(null ,"ADMIN");
 
-        roleRepository.saveAll(Arrays.asList(role1, role2));
 
         Todo t1 = new Todo(null
                 ,"Fazer back end"
