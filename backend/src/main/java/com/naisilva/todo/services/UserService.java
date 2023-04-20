@@ -1,6 +1,7 @@
 package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.User;
+import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
 import com.naisilva.todo.dtos.userDtos.UserResponseDto;
@@ -34,14 +35,14 @@ public class UserService {
         this.todoRepository = todoRepository;
     }
 
-    private BCryptPasswordEncoder passwordEncoder (){
+    private BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     public User saveUser(UserRequestDto request) {
         Optional<User> existingUser = userRepository.findByName(request.getName());
 
-        if(existingUser.isPresent()){
+        if (existingUser.isPresent()) {
             throw new RuntimeException("usuario ja existe");
         }
 
@@ -60,11 +61,20 @@ public class UserService {
     public Optional<UserResponseDto> getUserByUserId(Long id) {
         Optional<User> userModelOptional = userRepository.findById(id);
         if (userModelOptional.isPresent()) {
-
             User user = userModelOptional.get();
             UserResponseDto userResponseDto = new UserResponseDto();
 
             BeanUtils.copyProperties(user, userResponseDto);
+
+            List<RoleDtoRequest> roles = user.getRoles().stream()
+                    .map( roleModel -> {
+                        RoleDtoRequest role = new RoleDtoRequest(roleModel.getName());
+                        return role;
+                            }
+                    )
+                    .collect(Collectors.toList());
+
+            userResponseDto.setRoles(roles);
 
             List<TodoDtoResponse> todos = user.getTodos().stream()
                     .map(todoModel -> {
@@ -75,9 +85,7 @@ public class UserService {
                     .collect(Collectors.toList());
 
             userResponseDto.setTodos(todos);
-
             return Optional.of(userResponseDto);
-
         } else {
             return Optional.empty();
         }
@@ -93,6 +101,11 @@ public class UserService {
                         user.getName(),
                         user.getPassword(),
                         user.getEmail(),
+                        user.getRoles()
+                                .stream()
+                                .map(
+                                        role -> new RoleDtoRequest(role.getName())
+                                ).collect(Collectors.toList()),
                         user.getToken(),
                         user.getTodos()
                                 .stream()

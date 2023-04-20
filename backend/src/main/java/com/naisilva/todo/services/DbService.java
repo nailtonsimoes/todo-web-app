@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class DbService {
@@ -26,15 +28,12 @@ public class DbService {
     @Autowired
     private final RoleRepository roleRepository;
 
-    @Autowired
-    private final RoleService roleService;
 
     @Autowired
-    public DbService (TodoRepository todoRepository, UserRepository userRepository, RoleRepository roleRepository, RoleService roleService) {
+    public DbService(TodoRepository todoRepository, UserRepository userRepository, RoleRepository roleRepository) {
         this.todoRepository = todoRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.roleService = roleService;
     }
 
     @PostConstruct
@@ -53,47 +52,55 @@ public class DbService {
                 "osvaldo@email.com",
                 "123456",
                 "asasas"
-                );
+        );
 
-        Role r1 = roleService.createRole(new RoleDtoRequest("ADMIN"));
-        Role r2 = roleService.createRole(new RoleDtoRequest("USER"));
+        Role r1 = new Role(null,"ADMIN");
+        roleRepository.save(r1);
 
-        u1.getRoles().add(r1);
-        u2.getRoles().add(r2);
+        Role r2 = new Role(null,"USER");
+        roleRepository.save(r2);
+
+        List<Role> rolesU1 = new ArrayList<>();
+        rolesU1.add(r1);
+
+        List<Role> rolesU2 = new ArrayList<>();
+        rolesU2.add(r2);
+
+        u1.setRoles(rolesU1);
+        u2.setRoles(rolesU2);
 
         userRepository.saveAll(Arrays.asList(u1, u2));
 
 
-
         Todo t1 = new Todo(null
-                ,"Fazer back end"
-                ,"At"
-                ,sdf.parse("06/02/2023")
-                ,true
+                , "Fazer back end"
+                , "At"
+                , sdf.parse("06/02/2023")
+                , true
         );
         t1.setUser(u1);
 
         Todo t2 = new Todo(null
-                ,"Fazer front end"
-                ,"At"
-                ,sdf.parse("06/02/2023")
-                ,false
+                , "Fazer front end"
+                , "At"
+                , sdf.parse("06/02/2023")
+                , false
         );
         t2.setUser(u2);
 
         Todo t3 = new Todo(null
-                ,"Fazer Integração"
-                ,"At"
-                ,sdf.parse("06/02/2023")
-                ,false
+                , "Fazer Integração"
+                , "At"
+                , sdf.parse("06/02/2023")
+                , false
         );
         t3.setUser(u1);
 
         Todo t4 = new Todo(null
-                ,"Uma tarefa de teste a mais"
-                ,"At"
-                ,sdf.parse("06/02/2023")
-                ,false
+                , "Uma tarefa de teste a mais"
+                , "At"
+                , sdf.parse("06/02/2023")
+                , false
         );
         t4.setUser(u2);
 
