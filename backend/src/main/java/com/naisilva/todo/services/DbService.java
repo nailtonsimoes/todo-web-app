@@ -1,5 +1,6 @@
 package com.naisilva.todo.services;
 
+import com.naisilva.todo.config.enums.RoleName;
 import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.Todo;
 import com.naisilva.todo.domain.User;
@@ -9,6 +10,7 @@ import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +29,10 @@ public class DbService {
     private final UserRepository userRepository;
     @Autowired
     private final RoleRepository roleRepository;
+
+    private BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
     @Autowired
@@ -54,10 +60,13 @@ public class DbService {
                 "asasas"
         );
 
-        Role r1 = new Role(null,"ADMIN");
+        u1.setPassword(passwordEncoder().encode(u1.getPassword()));
+        u2.setPassword(passwordEncoder().encode(u2.getPassword()));
+
+        Role r1 = new Role(null, RoleName.ROLE_ADMIN);
         roleRepository.save(r1);
 
-        Role r2 = new Role(null,"USER");
+        Role r2 = new Role(null,RoleName.ROLE_USER);
         roleRepository.save(r2);
 
         List<Role> rolesU1 = new ArrayList<>();

@@ -68,7 +68,7 @@ public class UserService {
 
             List<RoleDtoRequest> roles = user.getRoles().stream()
                     .map( roleModel -> {
-                        RoleDtoRequest role = new RoleDtoRequest(roleModel.getName());
+                        RoleDtoRequest role = new RoleDtoRequest(roleModel.getName().toString());
                         return role;
                             }
                     )
@@ -104,7 +104,7 @@ public class UserService {
                         user.getRoles()
                                 .stream()
                                 .map(
-                                        role -> new RoleDtoRequest(role.getName())
+                                        role -> new RoleDtoRequest(role.getName().toString())
                                 ).collect(Collectors.toList()),
                         user.getToken(),
                         user.getTodos()

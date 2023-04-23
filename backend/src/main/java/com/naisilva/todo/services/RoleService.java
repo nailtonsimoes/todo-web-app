@@ -1,5 +1,6 @@
 package com.naisilva.todo.services;
 
+import com.naisilva.todo.config.enums.RoleName;
 import com.naisilva.todo.domain.Role;
 import com.naisilva.todo.domain.User;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
@@ -47,7 +48,8 @@ public class RoleService {
 
     public Role createRole(RoleDtoRequest request) {
         Role role = new Role();
-        role.setName(request.getName());
+        RoleName roleName = RoleName.valueOf(request.getName().toUpperCase());
+        role.setName(roleName);
         return roleRepository.save(role);
     }
 
