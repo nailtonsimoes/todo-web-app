@@ -63,8 +63,8 @@ public class TodoController {
     @GetMapping(value = "/open")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "READ_ALL_OPEN", description = "Retorna uma lista de tarefas em Aberto")
-    public ResponseEntity<List<Todo>> listOpen() {
-        List<Todo> list = todoService.findAllOpen();
+    public ResponseEntity<List<TodoEntity>> listOpen() {
+        List<TodoEntity> list = todoService.findAllOpen();
         return ResponseEntity.ok().body(list);
     }
      */
@@ -72,8 +72,8 @@ public class TodoController {
     /*
     @GetMapping(value = "/close")
     @Operation(summary = "READ_ALL_CLOSE", description = "Retorna uma lista de tarefas encerradas")
-    public ResponseEntity<List<Todo>> listClose() {
-        List<Todo> list = todoService.findAllClose();
+    public ResponseEntity<List<TodoEntity>> listClose() {
+        List<TodoEntity> list = todoService.findAllClose();
         return ResponseEntity.ok().body(list);
     }
      */

@@ -1,8 +1,8 @@
 package com.naisilva.todo.services;
 
 import com.naisilva.todo.config.enums.RoleName;
-import com.naisilva.todo.domain.Role;
-import com.naisilva.todo.domain.User;
+import com.naisilva.todo.domain.RoleEntity;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.repositories.RoleRepository;
@@ -22,22 +22,22 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public User execute(CreateUserRoleDto createUserRoleDto){
+    public UserEntity execute(CreateUserRoleDto createUserRoleDto){
 
-        Optional<User> userExists = userRepository.findById(createUserRoleDto.getUserId());
+        Optional<UserEntity> userExists = userRepository.findById(createUserRoleDto.getUserId());
 
         if(userExists.isEmpty()) {
             throw new RuntimeException("Usuario Não existe!");
         }
 
-        List<Role> roles = createUserRoleDto.getIdsRoles().stream()
+        List<RoleEntity> roles = createUserRoleDto.getIdsRoles().stream()
                 .map(
                         role -> {
-                            return new Role(role);
+                            return new RoleEntity(role);
                         }
                 ).collect(Collectors.toList());
 
-        User user = userExists.get();
+        UserEntity user = userExists.get();
 
         user.setRoles(roles);
 
@@ -46,14 +46,14 @@ public class RoleService {
         return user;
     }
 
-    public Role createRole(RoleDtoRequest request) {
-        Role role = new Role();
+    public RoleEntity createRole(RoleDtoRequest request) {
+        RoleEntity role = new RoleEntity();
         RoleName roleName = RoleName.valueOf(request.getName().toUpperCase());
         role.setName(roleName);
         return roleRepository.save(role);
     }
 
-    public List<Role> listAllRoles() {
+    public List<RoleEntity> listAllRoles() {
         return roleRepository.findAll();
     }
 }

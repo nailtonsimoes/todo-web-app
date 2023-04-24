@@ -1,6 +1,6 @@
 package com.naisilva.todo.services;
 
-import com.naisilva.todo.domain.User;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
@@ -39,8 +39,8 @@ public class UserService {
         return new BCryptPasswordEncoder();
     }
 
-    public User saveUser(UserRequestDto request) {
-        Optional<User> existingUser = userRepository.findByName(request.getName());
+    public UserEntity saveUser(UserRequestDto request) {
+        Optional<UserEntity> existingUser = userRepository.findByName(request.getName());
 
         if (existingUser.isPresent()) {
             throw new RuntimeException("usuario ja existe");
@@ -48,20 +48,20 @@ public class UserService {
 
         request.setPassword(passwordEncoder().encode(request.getPassword()));
 
-        User user = new User();
+        UserEntity user = new UserEntity();
         BeanUtils.copyProperties(request, user);
 
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserByUserName(String name) {
+    public Optional<UserEntity> getUserByUserName(String name) {
         return userRepository.findByName(name);
     }
 
     public Optional<UserResponseDto> getUserByUserId(Long id) {
-        Optional<User> userModelOptional = userRepository.findById(id);
+        Optional<UserEntity> userModelOptional = userRepository.findById(id);
         if (userModelOptional.isPresent()) {
-            User user = userModelOptional.get();
+            UserEntity user = userModelOptional.get();
             UserResponseDto userResponseDto = new UserResponseDto();
 
             BeanUtils.copyProperties(user, userResponseDto);
@@ -92,7 +92,7 @@ public class UserService {
     }
 
     public List<UserResponseDto> listAllUsers() {
-        List<User> listUsersDB = userRepository.findAll();
+        List<UserEntity> listUsersDB = userRepository.findAll();
 
         List<UserResponseDto> listUsersResponse = listUsersDB
                 .stream()
@@ -124,10 +124,10 @@ public class UserService {
     }
 
     public void updateUser(Long id, UserRequestDto request) {
-        User userModel = userRepository.findById(id)
+        UserEntity userModel = userRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
-                                "Usuario não encontrado id: " + id + ", tipo: " + User.class.getName()
+                                "Usuario não encontrado id: " + id + ", tipo: " + UserEntity.class.getName()
                         ));
 
         userModel.setName(request.getName());

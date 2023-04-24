@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "todos")
-public class Todo implements Serializable {
+public class TodoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,9 +39,9 @@ public class Todo implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     @JsonIgnore
-    private User user;
+    private UserEntity user;
 
-    public Todo(Long id, String title, String description, Date dateForFinalize, Boolean finished){
+    public TodoEntity(Long id, String title, String description, Date dateForFinalize, Boolean finished){
         this.title = title;
         this.description = description;
         this.dateForFinalize = dateForFinalize;

@@ -1,6 +1,6 @@
 package com.naisilva.todo.controllers;
 
-import com.naisilva.todo.domain.User;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
 import com.naisilva.todo.dtos.userDtos.UserResponseDto;
@@ -35,9 +35,9 @@ public class UserController {
 
 
     @PostMapping("/create")
-    @Operation(summary = "Create a User", description = "Cadastra um usuário")
+    @Operation(summary = "Create a UserEntity", description = "Cadastra um usuário")
     @ResponseStatus(HttpStatus.CREATED)
-    public User createUser(@RequestBody UserRequestDto user) {
+    public UserEntity createUser(@RequestBody UserRequestDto user) {
         return userService.saveUser(user);
     }
 
@@ -58,7 +58,7 @@ public class UserController {
     @GetMapping("/{userName}/allTodos/userName")
     @Operation(summary = "Find All TODOS by UserName", description = "Retorna uma lista de tarefas baseado em um usuario")
     public ResponseEntity<List<TodoDtoResponse>> getTodosByUsername(@PathVariable String userName) {
-        Optional<User> user = userService.getUserByUserName(userName);
+        Optional<UserEntity> user = userService.getUserByUserName(userName);
         if (user.isPresent()) {
             List<TodoDtoResponse> todos = todoService.getTodosByUserName(user.get().getName());
             return ResponseEntity.ok(todos);
@@ -80,14 +80,14 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update a User", description = "Atualiza um usuario")
+    @Operation(summary = "Update a UserEntity", description = "Atualiza um usuario")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUser(@PathVariable Long id, @RequestBody UserRequestDto user){
         userService.updateUser(id,user);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete a User", description = "Deleta um usuario")
+    @Operation(summary = "Delete a UserEntity", description = "Deleta um usuario")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@PathVariable Long id){
         userService.deleteUser(id);

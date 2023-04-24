@@ -1,7 +1,7 @@
 package com.naisilva.todo.controllers;
 
-import com.naisilva.todo.domain.Role;
-import com.naisilva.todo.domain.User;
+import com.naisilva.todo.domain.RoleEntity;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.services.RoleService;
@@ -29,23 +29,23 @@ public class RoleController {
 
 
     @PostMapping("/setRole")
-    @Operation(summary = "Set a RoleUser", description = "Adiciona uma role a um User")
+    @Operation(summary = "Set a RoleUser", description = "Adiciona uma role a um UserEntity")
     @ResponseStatus(CREATED)
-    public User setRole(@RequestBody CreateUserRoleDto createUserRoleDto) {
+    public UserEntity setRole(@RequestBody CreateUserRoleDto createUserRoleDto) {
         return roleService.execute(createUserRoleDto);
     }
 
     @PostMapping("/createRole")
     @Operation(summary = "Create a RoleUser", description = "Cadastra uma role")
     @ResponseStatus(HttpStatus.CREATED)
-    public Role createRole(@RequestBody RoleDtoRequest request) {
+    public RoleEntity createRole(@RequestBody RoleDtoRequest request) {
         return roleService.createRole(request);
     }
 
     @GetMapping("/allRoles")
     @Operation(summary = "Find All Roles", description = "Busca todos os Roles")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Role> findAllRoles () {
+    @ResponseStatus(HttpStatus.OK)
+    public List<RoleEntity> findAllRoles () {
         return roleService.listAllRoles();
     }
 

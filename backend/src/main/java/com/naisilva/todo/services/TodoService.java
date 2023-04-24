@@ -1,7 +1,7 @@
 package com.naisilva.todo.services;
 
-import com.naisilva.todo.domain.Todo;
-import com.naisilva.todo.domain.User;
+import com.naisilva.todo.domain.TodoEntity;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
 import com.naisilva.todo.repositories.TodoRepository;
@@ -28,10 +28,10 @@ public class TodoService {
     }
 
     public TodoDtoResponse createTodo(Long userId, TodoDtoResquest request) {
-        User user = userRepository.findById(userId)
+        UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
 
-        Todo todoModel = new Todo();
+        TodoEntity todoModel = new TodoEntity();
 
         todoModel.setTitle(request.getTitle());
         todoModel.setDescription(request.getDescription());
@@ -49,7 +49,7 @@ public class TodoService {
     }
 
     public List<TodoDtoResponse> getTodosByUserId(Long userId) {
-        List<Todo> listTodosDB = todoRepository.findByUserId(userId);
+        List<TodoEntity> listTodosDB = todoRepository.findByUserId(userId);
 
         List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
                 todo -> new TodoDtoResponse(
@@ -65,7 +65,7 @@ public class TodoService {
     }
 
     public List<TodoDtoResponse> getTodosByUserName(String name) {
-        List<Todo> listTodosDB = todoRepository.findByUserName(name);
+        List<TodoEntity> listTodosDB = todoRepository.findByUserName(name);
 
         List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
                 todo -> new TodoDtoResponse(
@@ -80,17 +80,17 @@ public class TodoService {
         return listTodosResponse;
     }
 
-    public List<Todo> findTodosByUserEmail(String email) {
+    public List<TodoEntity> findTodosByUserEmail(String email) {
         return todoRepository.findByUserEmail(email);
     }
 
 
 
     public TodoDtoResponse findTodoById(Long id) {
-        Todo todo = todoRepository.findById(id)
+        TodoEntity todo = todoRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
-                "item não encontrado id: " + id + ", tipo: " + Todo.class.getName()
+                "item não encontrado id: " + id + ", tipo: " + TodoEntity.class.getName()
         ));
 
         TodoDtoResponse response = new TodoDtoResponse();
@@ -100,15 +100,15 @@ public class TodoService {
         return response;
     }
 
-    public List<Todo> listAll() {
+    public List<TodoEntity> listAll() {
         return todoRepository.findAll();
     }
 
     public TodoDtoResponse updateTodo(Long id, TodoDtoResquest todoRequest) {
-        Todo todo = todoRepository.findById(id)
+        TodoEntity todo = todoRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
-                                "Tarefa não encontrado id: " + id + ", tipo: " + Todo.class.getName()
+                                "Tarefa não encontrado id: " + id + ", tipo: " + TodoEntity.class.getName()
                         ));
 
         todo.setTitle(todoRequest.getTitle());
@@ -129,15 +129,15 @@ public class TodoService {
     }
 
     /*
-    public List<Todo> findAllOpen() {
-        List<Todo> list = todoRepository.findAllOpen();
+    public List<TodoEntity> findAllOpen() {
+        List<TodoEntity> list = todoRepository.findAllOpen();
         return list;
     }
      */
 
     /*
-    public List<Todo> findAllClose() {
-        List<Todo> list = todoRepository.findAllClose();
+    public List<TodoEntity> findAllClose() {
+        List<TodoEntity> list = todoRepository.findAllClose();
         return list;
     }
     */

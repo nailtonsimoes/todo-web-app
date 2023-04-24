@@ -1,11 +1,9 @@
 package com.naisilva.todo.services;
 
 import com.naisilva.todo.config.enums.RoleName;
-import com.naisilva.todo.domain.Role;
-import com.naisilva.todo.domain.Todo;
-import com.naisilva.todo.domain.User;
-import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
-import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
+import com.naisilva.todo.domain.RoleEntity;
+import com.naisilva.todo.domain.TodoEntity;
+import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
@@ -46,13 +44,13 @@ public class DbService {
     public void instanciaBaseDeDados() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        User u1 = new User(null,
+        UserEntity u1 = new UserEntity(null,
                 "nelson",
                 "nelson@email.com",
                 "123456",
                 "token");
 
-        User u2 = new User(
+        UserEntity u2 = new UserEntity(
                 null,
                 "osvaldo",
                 "osvaldo@email.com",
@@ -63,16 +61,16 @@ public class DbService {
         u1.setPassword(passwordEncoder().encode(u1.getPassword()));
         u2.setPassword(passwordEncoder().encode(u2.getPassword()));
 
-        Role r1 = new Role(null, RoleName.ROLE_ADMIN);
+        RoleEntity r1 = new RoleEntity(null, RoleName.ROLE_ADMIN);
         roleRepository.save(r1);
 
-        Role r2 = new Role(null,RoleName.ROLE_USER);
+        RoleEntity r2 = new RoleEntity(null,RoleName.ROLE_USER);
         roleRepository.save(r2);
 
-        List<Role> rolesU1 = new ArrayList<>();
+        List<RoleEntity> rolesU1 = new ArrayList<>();
         rolesU1.add(r1);
 
-        List<Role> rolesU2 = new ArrayList<>();
+        List<RoleEntity> rolesU2 = new ArrayList<>();
         rolesU2.add(r2);
 
         u1.setRoles(rolesU1);
@@ -81,7 +79,7 @@ public class DbService {
         userRepository.saveAll(Arrays.asList(u1, u2));
 
 
-        Todo t1 = new Todo(null
+        TodoEntity t1 = new TodoEntity(null
                 , "Fazer back end"
                 , "At"
                 , sdf.parse("06/02/2023")
@@ -89,7 +87,7 @@ public class DbService {
         );
         t1.setUser(u1);
 
-        Todo t2 = new Todo(null
+        TodoEntity t2 = new TodoEntity(null
                 , "Fazer front end"
                 , "At"
                 , sdf.parse("06/02/2023")
@@ -97,7 +95,7 @@ public class DbService {
         );
         t2.setUser(u2);
 
-        Todo t3 = new Todo(null
+        TodoEntity t3 = new TodoEntity(null
                 , "Fazer Integração"
                 , "At"
                 , sdf.parse("06/02/2023")
@@ -105,7 +103,7 @@ public class DbService {
         );
         t3.setUser(u1);
 
-        Todo t4 = new Todo(null
+        TodoEntity t4 = new TodoEntity(null
                 , "Uma tarefa de teste a mais"
                 , "At"
                 , sdf.parse("06/02/2023")

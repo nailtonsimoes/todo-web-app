@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements UserDetails,Serializable {
+public class UserEntity implements UserDetails,Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,15 +48,15 @@ public class User implements UserDetails,Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Todo> todos = new ArrayList<>();
+    private List<TodoEntity> todos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TB_USERS_ROLES",
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    private List<RoleEntity> roles;
 
-    public User (Long id, String name, String email, String password , String token){
+    public UserEntity(Long id, String name, String email, String password , String token){
         this.name = name;
         this.email = email;
         this.password = password;

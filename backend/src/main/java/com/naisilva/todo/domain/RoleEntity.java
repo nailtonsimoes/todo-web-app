@@ -8,14 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Data
 @Table(name = "roles")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role implements GrantedAuthority ,Serializable {
+public class RoleEntity implements GrantedAuthority ,Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,7 +26,7 @@ public class Role implements GrantedAuthority ,Serializable {
     @Enumerated(EnumType.STRING)
     private RoleName name;
 
-    public Role(Long id) {
+    public RoleEntity(Long id) {
         this.id = id;
     }
 
