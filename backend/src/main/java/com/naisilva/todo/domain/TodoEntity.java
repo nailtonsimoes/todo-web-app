@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "todos")
+@Table(name = "TB_TODO")
 public class TodoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

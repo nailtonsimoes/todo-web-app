@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "roles")
+@Table(name = "TB_ROLE")
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleEntity implements GrantedAuthority ,Serializable {
