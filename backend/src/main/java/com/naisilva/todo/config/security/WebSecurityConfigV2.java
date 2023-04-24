@@ -18,7 +18,7 @@ public class WebSecurityConfigV2 {
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET,"/api/users/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/users/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

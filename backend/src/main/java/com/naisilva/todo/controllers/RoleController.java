@@ -49,4 +49,12 @@ public class RoleController {
         return roleService.listAllRoles();
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Find a USER by Id", description = "Retorna um usuário")
+    @ResponseStatus(HttpStatus.OK)
+    public RoleEntity findById (@PathVariable Long id){
+        return roleService.findById(id);
+    }
+
+
 }

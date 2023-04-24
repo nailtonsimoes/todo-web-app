@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +43,6 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    @PermitAll()
     @Operation(summary = "Find All Users", description = "Retorna uma lista de usuários")
     @ResponseStatus(HttpStatus.OK)
     public List<UserResponseDto> getAllUsers() {
@@ -55,7 +53,7 @@ public class UserController {
     @Operation(summary = "Find a USER by Id", description = "Retorna um usuário")
     @ResponseStatus(HttpStatus.OK)
     public Optional<UserResponseDto> getUserById(@PathVariable Long id) {
-        return userService.getUserByUserId(id);
+        return userService.getUserById(id);
     }
 
     @GetMapping("/{userName}/allTodos/userName")
@@ -73,7 +71,7 @@ public class UserController {
     @GetMapping("/{userId}/allTodos/byUserId")
     @Operation(summary = "Find All TODOS by UserId", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
     public ResponseEntity<List<TodoDtoResponse>> getTodosById(@PathVariable Long userId) {
-        Optional<UserResponseDto> user = userService.getUserByUserId(userId);
+        Optional<UserResponseDto> user = userService.getUserById(userId);
         if (user.isPresent()) {
             List<TodoDtoResponse> todos = todoService.getTodosByUserId(user.get().getId());
             return ResponseEntity.ok(todos);
@@ -84,14 +82,15 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a UserEntity", description = "Atualiza um usuario")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void updateUser(@PathVariable Long id, @RequestBody UserRequestDto user){
         userService.updateUser(id,user);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a UserEntity", description = "Deleta um usuario")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteUserById(@PathVariable Long id){
         userService.deleteUser(id);
     }

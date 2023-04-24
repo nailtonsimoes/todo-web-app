@@ -1,11 +1,13 @@
 package com.naisilva.todo.services;
 
+import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
 import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
 import com.naisilva.todo.dtos.userDtos.UserResponseDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
+import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,18 +24,22 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
+
+    @Autowired
+    private final RoleRepository roleRepository;
 
     @Autowired
     private ModelMapper mapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, TodoRepository todoRepository) {
+    public UserService(UserRepository userRepository, TodoRepository todoRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.todoRepository = todoRepository;
+        this.roleRepository = roleRepository;
     }
 
     private BCryptPasswordEncoder passwordEncoder() {
@@ -51,6 +58,14 @@ public class UserService {
         UserEntity user = new UserEntity();
         BeanUtils.copyProperties(request, user);
 
+        List<RoleEntity> rolesList = new ArrayList<>();
+        RoleEntity role = roleRepository.findById(request.getRoleId()).orElseThrow(
+                () -> new ObjectNotFoundException(
+                        "Role não encontrada! "
+                ));
+        rolesList.add(role);
+        user.setRoles(rolesList);
+
         return userRepository.save(user);
     }
 
@@ -58,8 +73,10 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public Optional<UserResponseDto> getUserByUserId(Long id) {
+    public Optional<UserResponseDto> getUserById(Long id) {
+
         Optional<UserEntity> userModelOptional = userRepository.findById(id);
+
         if (userModelOptional.isPresent()) {
             UserEntity user = userModelOptional.get();
             UserResponseDto userResponseDto = new UserResponseDto();
@@ -85,6 +102,7 @@ public class UserService {
                     .collect(Collectors.toList());
 
             userResponseDto.setTodos(todos);
+
             return Optional.of(userResponseDto);
         } else {
             return Optional.empty();
@@ -133,6 +151,14 @@ public class UserService {
         userModel.setName(request.getName());
         userModel.setEmail(request.getEmail());
         userModel.setPassword(request.getPassword());
+
+        List<RoleEntity> roles = new ArrayList<>();
+        RoleEntity role = roleRepository.findById(request.getRoleId()).orElseThrow(
+                () -> new ObjectNotFoundException(
+                        "Role não encontrada id: " + request.getRoleId() + ", tipo: " + RoleEntity.class.getName()
+                ));
+        roles.add(role);
+        userModel.setRoles(roles);
 
         userRepository.save(userModel);
     }

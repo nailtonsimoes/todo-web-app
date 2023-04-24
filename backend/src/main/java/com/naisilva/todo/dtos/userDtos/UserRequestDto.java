@@ -15,4 +15,6 @@ public class UserRequestDto {
 
     private String password;
 
+    private Long roleId;
+
 }

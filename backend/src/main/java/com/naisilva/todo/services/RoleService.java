@@ -5,6 +5,7 @@ import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
 import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
+import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
-    public UserEntity execute(CreateUserRoleDto createUserRoleDto){
+    public UserEntity execute(CreateUserRoleDto createUserRoleDto) {
 
         Optional<UserEntity> userExists = userRepository.findById(createUserRoleDto.getUserId());
 
-        if(userExists.isEmpty()) {
+        if (userExists.isEmpty()) {
             throw new RuntimeException("Usuario Não existe!");
         }
 
@@ -55,5 +56,12 @@ public class RoleService {
 
     public List<RoleEntity> listAllRoles() {
         return roleRepository.findAll();
+    }
+
+    public RoleEntity findById(Long id) {
+        return roleRepository.findById(id).orElseThrow(
+                () -> new ObjectNotFoundException(
+                        "Role não encontrada id: " + id + ", tipo: " + RoleEntity.class.getName()
+                ));
     }
 }
