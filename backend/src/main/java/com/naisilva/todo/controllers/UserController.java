@@ -13,8 +13,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
+    @PermitAll()
     @Operation(summary = "Find All Users", description = "Retorna uma lista de usuários")
     @ResponseStatus(HttpStatus.OK)
     public List<UserResponseDto> getAllUsers() {
