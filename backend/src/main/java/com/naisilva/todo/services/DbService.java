@@ -53,7 +53,7 @@ public class DbService {
         Long count = em.createQuery("SELECT COUNT(u) FROM UserEntity u", Long.class).getSingleResult();
 
         if (count == 0) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
             UserEntity u1 = new UserEntity(null,
                     "nelson",
@@ -93,7 +93,7 @@ public class DbService {
             TodoEntity t1 = new TodoEntity(null
                     , "Fazer back end"
                     , "At"
-                    , sdf.parse("06/02/2023")
+                    , simpleDateFormat.parse("06/02/2023")
                     , true
             );
             t1.setUser(u1);
@@ -101,7 +101,7 @@ public class DbService {
             TodoEntity t2 = new TodoEntity(null
                     , "Fazer front end"
                     , "At"
-                    , sdf.parse("06/02/2023")
+                    , simpleDateFormat.parse("06/02/2023")
                     , false
             );
             t2.setUser(u2);
@@ -109,7 +109,7 @@ public class DbService {
             TodoEntity t3 = new TodoEntity(null
                     , "Fazer Integração"
                     , "At"
-                    , sdf.parse("06/02/2023")
+                    , simpleDateFormat.parse("06/02/2023")
                     , false
             );
             t3.setUser(u1);
@@ -117,7 +117,7 @@ public class DbService {
             TodoEntity t4 = new TodoEntity(null
                     , "Uma tarefa de teste a mais"
                     , "At"
-                    , sdf.parse("06/02/2023")
+                    , simpleDateFormat.parse("06/02/2023")
                     , false
             );
             t4.setUser(u2);
