@@ -3,7 +3,7 @@ package com.naisilva.todo.controllers;
 import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
-import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
+import com.naisilva.todo.dtos.roleDtos.RoleRequestDto;
 import com.naisilva.todo.services.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,7 +38,7 @@ public class RoleController {
     @PostMapping("/createRole")
     @Operation(summary = "Create a RoleUser", description = "Cadastra uma role")
     @ResponseStatus(HttpStatus.CREATED)
-    public RoleEntity createRole(@RequestBody RoleDtoRequest request) {
+    public RoleEntity createRole(@RequestBody RoleRequestDto request) {
         return roleService.createRole(request);
     }
 

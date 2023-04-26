@@ -2,8 +2,8 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.TodoEntity;
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
-import com.naisilva.todo.dtos.todoDtos.TodoDtoResquest;
+import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
+import com.naisilva.todo.dtos.todoDtos.TodoRequestDto;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.UserRepository;
@@ -27,7 +27,7 @@ public class TodoService {
         this.userRepository = userRepository;
     }
 
-    public TodoDtoResponse createTodo(Long userId, TodoDtoResquest request) {
+    public TodoResponseDto createTodo(Long userId, TodoRequestDto request) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
 
@@ -40,7 +40,7 @@ public class TodoService {
         todoModel.setUser(user);
 
         todoRepository.save(todoModel);
-        TodoDtoResponse response = new TodoDtoResponse();
+        TodoResponseDto response = new TodoResponseDto();
 
         BeanUtils.copyProperties(todoModel, response);
         response.setUserId(userId);
@@ -48,11 +48,11 @@ public class TodoService {
         return response;
     }
 
-    public List<TodoDtoResponse> getTodosByUserId(Long userId) {
+    public List<TodoResponseDto> getTodosByUserId(Long userId) {
         List<TodoEntity> listTodosDB = todoRepository.findByUserId(userId);
 
-        List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
-                todo -> new TodoDtoResponse(
+        List<TodoResponseDto> listTodosResponse = listTodosDB.stream().map(
+                todo -> new TodoResponseDto(
                         todo.getId(),
                         todo.getTitle(),
                         todo.getDescription(),
@@ -64,11 +64,11 @@ public class TodoService {
         return listTodosResponse;
     }
 
-    public List<TodoDtoResponse> getTodosByUserName(String name) {
+    public List<TodoResponseDto> getTodosByUserName(String name) {
         List<TodoEntity> listTodosDB = todoRepository.findByUserName(name);
 
-        List<TodoDtoResponse> listTodosResponse = listTodosDB.stream().map(
-                todo -> new TodoDtoResponse(
+        List<TodoResponseDto> listTodosResponse = listTodosDB.stream().map(
+                todo -> new TodoResponseDto(
                         todo.getId(),
                         todo.getTitle(),
                         todo.getDescription(),
@@ -86,14 +86,14 @@ public class TodoService {
 
 
 
-    public TodoDtoResponse findTodoById(Long id) {
+    public TodoResponseDto findTodoById(Long id) {
         TodoEntity todo = todoRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
                 "item não encontrado id: " + id + ", tipo: " + TodoEntity.class.getName()
         ));
 
-        TodoDtoResponse response = new TodoDtoResponse();
+        TodoResponseDto response = new TodoResponseDto();
         BeanUtils.copyProperties(todo, response);
         response.setUserId(todo.getUser().getId());
 
@@ -104,7 +104,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public TodoDtoResponse updateTodo(Long id, TodoDtoResquest todoRequest) {
+    public TodoResponseDto updateTodo(Long id, TodoRequestDto todoRequest) {
         TodoEntity todo = todoRepository.findById(id)
                 .orElseThrow(
                         () -> new ObjectNotFoundException(
@@ -117,7 +117,7 @@ public class TodoService {
         todo.setDateForFinalize(todoRequest.getDateForFinalize());
         todoRepository.save(todo);
 
-        TodoDtoResponse response = new TodoDtoResponse();
+        TodoResponseDto response = new TodoResponseDto();
         BeanUtils.copyProperties(todo, response);
         response.setUserId(todo.getUser().getId());
 

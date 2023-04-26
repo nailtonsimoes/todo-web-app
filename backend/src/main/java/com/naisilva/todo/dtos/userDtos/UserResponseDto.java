@@ -1,8 +1,8 @@
 package com.naisilva.todo.dtos.userDtos;
 
 
-import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
-import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
+import com.naisilva.todo.dtos.roleDtos.RoleRequestDto;
+import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
 import lombok.*;
 
 import java.util.List;
@@ -19,10 +19,10 @@ public class UserResponseDto {
 
     private String email;
 
-    private List<RoleDtoRequest> roles;
+    private List<RoleRequestDto> roles;
 
     private String token;
 
-    private List<TodoDtoResponse> todos;
+    private List<TodoResponseDto> todos;
 
 }

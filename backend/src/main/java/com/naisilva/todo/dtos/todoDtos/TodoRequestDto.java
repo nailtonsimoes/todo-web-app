@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoDtoResquest {
+public class TodoRequestDto {
 
     @JsonIgnore
     private Long id;

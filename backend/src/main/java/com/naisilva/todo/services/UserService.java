@@ -2,8 +2,8 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
-import com.naisilva.todo.dtos.todoDtos.TodoDtoResponse;
+import com.naisilva.todo.dtos.roleDtos.RoleRequestDto;
+import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
 import com.naisilva.todo.dtos.userDtos.UserRequestDto;
 import com.naisilva.todo.dtos.userDtos.UserResponseDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
@@ -83,9 +83,9 @@ public class UserService {
 
             BeanUtils.copyProperties(user, userResponseDto);
 
-            List<RoleDtoRequest> roles = user.getRoles().stream()
+            List<RoleRequestDto> roles = user.getRoles().stream()
                     .map( roleModel -> {
-                        RoleDtoRequest role = new RoleDtoRequest(roleModel.getName().toString());
+                        RoleRequestDto role = new RoleRequestDto(roleModel.getName().toString());
                         return role;
                             }
                     )
@@ -93,9 +93,9 @@ public class UserService {
 
             userResponseDto.setRoles(roles);
 
-            List<TodoDtoResponse> todos = user.getTodos().stream()
+            List<TodoResponseDto> todos = user.getTodos().stream()
                     .map(todoModel -> {
-                        TodoDtoResponse todo = new TodoDtoResponse();
+                        TodoResponseDto todo = new TodoResponseDto();
                         BeanUtils.copyProperties(todoModel, todo);
                         return todo;
                     })
@@ -122,13 +122,13 @@ public class UserService {
                         user.getRoles()
                                 .stream()
                                 .map(
-                                        role -> new RoleDtoRequest(role.getName().toString())
+                                        role -> new RoleRequestDto(role.getName().toString())
                                 ).collect(Collectors.toList()),
                         user.getToken(),
                         user.getTodos()
                                 .stream()
                                 .map(
-                                        todo -> new TodoDtoResponse(
+                                        todo -> new TodoResponseDto(
                                                 todo.getId(),
                                                 todo.getTitle(),
                                                 todo.getDescription(),

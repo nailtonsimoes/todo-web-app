@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDtoRequest {
+public class RoleRequestDto {
 
     private String name;
 

@@ -4,7 +4,7 @@ import com.naisilva.todo.config.enums.RoleName;
 import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.dtos.roleDtos.CreateUserRoleDto;
-import com.naisilva.todo.dtos.roleDtos.RoleDtoRequest;
+import com.naisilva.todo.dtos.roleDtos.RoleRequestDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.UserRepository;
@@ -47,7 +47,7 @@ public class RoleService {
         return user;
     }
 
-    public RoleEntity createRole(RoleDtoRequest request) {
+    public RoleEntity createRole(RoleRequestDto request) {
         RoleEntity role = new RoleEntity();
         RoleName roleName = RoleName.valueOf(request.getName().toUpperCase());
         role.setName(roleName);

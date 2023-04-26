@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TodoDtoResponse {
+public class TodoResponseDto {
 
     private Long id;
     private String title;
@@ -21,7 +21,7 @@ public class TodoDtoResponse {
 
     private Long userId;
 
-    public TodoDtoResponse(Long id, String title, String description, Date dateForFinalize, boolean finished) {
+    public TodoResponseDto(Long id, String title, String description, Date dateForFinalize, boolean finished) {
         this.id = id;
         this.title = title;
         this.description = description;
