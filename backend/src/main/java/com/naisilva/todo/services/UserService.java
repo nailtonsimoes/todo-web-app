@@ -84,9 +84,9 @@ public class UserService {
             BeanUtils.copyProperties(user, userResponseDto);
 
             List<RoleRequestDto> roles = user.getRoles().stream()
-                    .map( roleModel -> {
-                        RoleRequestDto role = new RoleRequestDto(roleModel.getName().toString());
-                        return role;
+                    .map(roleModel -> {
+                                RoleRequestDto role = new RoleRequestDto(roleModel.getName().toString());
+                                return role;
                             }
                     )
                     .collect(Collectors.toList());
@@ -150,15 +150,18 @@ public class UserService {
 
         userModel.setName(request.getName());
         userModel.setEmail(request.getEmail());
-        userModel.setPassword(request.getPassword());
+        userModel.setPassword(passwordEncoder().encode(request.getPassword()));
 
-        List<RoleEntity> roles = new ArrayList<>();
+        List<RoleEntity> roleList = new ArrayList<>();
+
         RoleEntity role = roleRepository.findById(request.getRoleId()).orElseThrow(
                 () -> new ObjectNotFoundException(
                         "Role não encontrada id: " + request.getRoleId() + ", tipo: " + RoleEntity.class.getName()
                 ));
-        roles.add(role);
-        userModel.setRoles(roles);
+
+        roleList.add(role);
+
+        userModel.setRoles(roleList);
 
         userRepository.save(userModel);
     }
@@ -166,5 +169,4 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-
 }

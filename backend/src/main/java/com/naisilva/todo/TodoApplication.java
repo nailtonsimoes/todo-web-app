@@ -14,7 +14,7 @@ public class TodoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TodoApplication.class, args);
-        System.out.println(new BCryptPasswordEncoder().encode("senha123"));
+        System.out.println(new BCryptPasswordEncoder().encode("morganalinda"));
     }
 
 }
