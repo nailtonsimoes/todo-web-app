@@ -16,6 +16,7 @@ export class TodoService {
   constructor(private http: HttpClient, private snack: MatSnackBar) { }
 
   findAll():Observable<Todo[]>{
+    console.log(this.baseUrl);
     return this.http.get<Todo[]>(this.baseUrl);
   }
 

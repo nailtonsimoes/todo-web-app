@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Todo } from '../../models/todo';
-import { TodoService } from '../../services/todo.service';
+import { Todo } from '../../../models/todo';
+import { TodoService } from '../../../services/todo.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

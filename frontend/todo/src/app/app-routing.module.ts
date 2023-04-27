@@ -1,10 +1,10 @@
-import { ReadAllComponent } from './components/read-all/read-all.component';
+import { ReadAllComponent } from './components/Todo/read-all/read-all.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { FinalizadosComponent } from './components/finalizados/finalizados.component';
-import { CreateComponent } from './components/create/create.component';
-import { UpdateComponent } from './components/update/update.component';
+import { FinalizadosComponent } from './components/Todo/finalizados/finalizados.component';
+import { CreateComponent } from './components/Todo/create/create.component';
+import { UpdateComponent } from './components/Todo/update/update.component';
 
 const routes: Routes = [
   {

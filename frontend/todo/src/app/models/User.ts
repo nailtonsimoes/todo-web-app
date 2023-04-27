@@ -1,9 +1,12 @@
+import { Role } from "./role";
 import { Todo } from "./todo";
 
 export interface User {
-    id?: String,
+    id: Number,
     userName: String,
     email: String,
     password: String,
-    todos?: Todo[]
+    token: String,
+    todos?: Todo[],
+    roles: Role[]
 }

@@ -4,11 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import {FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './components/layout/header/header.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 import { NgClass } from '@angular/common';
-import { ReadAllComponent } from './components/read-all/read-all.component';
+import { ReadAllComponent } from './components/Todo/read-all/read-all.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -18,12 +18,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FinalizadosComponent } from './components/finalizados/finalizados.component';
+import { FinalizadosComponent } from './components/Todo/finalizados/finalizados.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { CreateComponent } from './components/create/create.component';
+import { CreateComponent } from './components/Todo/create/create.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { UpdateComponent } from './components/update/update.component';
+import { UpdateComponent } from './components/Todo/update/update.component';
 import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
