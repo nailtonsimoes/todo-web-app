@@ -2,11 +2,11 @@ import { Role } from "./role";
 import { Todo } from "./todo";
 
 export interface User {
-    id: Number,
+    id?: Number,
     userName: String,
     email: String,
     password: String,
-    token: String,
+    token?: String,
     todos?: Todo[],
     roles: Role[]
 }

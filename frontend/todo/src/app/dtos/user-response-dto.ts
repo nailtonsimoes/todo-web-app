@@ -2,11 +2,11 @@ import { Role } from "../models/role";
 import { Todo } from "../models/todo";
 
 export interface UserResponseDto {
-    id: Number,
+    id?: Number,
     name: String,
     password: String,
     email: String,
-    token: String,
+    token?: String,
     roles: Role[],
-    todos: Todo[]
+    todos?: Todo[]
 }
