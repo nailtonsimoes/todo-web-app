@@ -1,7 +1,7 @@
 package com.naisilva.todo.controllers;
 
-import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
-import com.naisilva.todo.dtos.todoDtos.TodoRequestDto;
+import com.naisilva.todo.dtos.TodoResponseDto;
+import com.naisilva.todo.dtos.TodoRequestDto;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;

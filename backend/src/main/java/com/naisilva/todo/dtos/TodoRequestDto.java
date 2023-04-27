@@ -1,4 +1,4 @@
-package com.naisilva.todo.dtos.todoDtos;
+package com.naisilva.todo.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,7 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TodoRequestDto {
-
     @JsonIgnore
     private Long id;
     private String title;

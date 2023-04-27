@@ -1,9 +1,9 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
-import com.naisilva.todo.dtos.userDtos.UserRequestDto;
-import com.naisilva.todo.dtos.userDtos.UserResponseDto;
+import com.naisilva.todo.dtos.TodoResponseDto;
+import com.naisilva.todo.dtos.UserRequestDto;
+import com.naisilva.todo.dtos.UserResponseDto;
 import com.naisilva.todo.services.TodoService;
 import com.naisilva.todo.services.RoleService;
 import com.naisilva.todo.services.UserService;
@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;

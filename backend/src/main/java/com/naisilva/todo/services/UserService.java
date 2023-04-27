@@ -2,10 +2,10 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.RoleEntity;
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.roleDtos.RoleRequestDto;
-import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
-import com.naisilva.todo.dtos.userDtos.UserRequestDto;
-import com.naisilva.todo.dtos.userDtos.UserResponseDto;
+import com.naisilva.todo.dtos.RoleDto;
+import com.naisilva.todo.dtos.TodoResponseDto;
+import com.naisilva.todo.dtos.UserRequestDto;
+import com.naisilva.todo.dtos.UserResponseDto;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.RoleRepository;
 import com.naisilva.todo.repositories.TodoRepository;
@@ -83,9 +83,9 @@ public class UserService {
 
             BeanUtils.copyProperties(user, userResponseDto);
 
-            List<RoleRequestDto> roles = user.getRoles().stream()
+            List<RoleDto> roles = user.getRoles().stream()
                     .map(roleModel -> {
-                                RoleRequestDto role = new RoleRequestDto(roleModel.getName().toString());
+                                RoleDto role = new RoleDto(roleModel.getName().toString());
                                 return role;
                             }
                     )
@@ -122,7 +122,7 @@ public class UserService {
                         user.getRoles()
                                 .stream()
                                 .map(
-                                        role -> new RoleRequestDto(role.getName().toString())
+                                        role -> new RoleDto(role.getName().toString())
                                 ).collect(Collectors.toList()),
                         user.getToken(),
                         user.getTodos()

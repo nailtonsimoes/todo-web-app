@@ -2,8 +2,8 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.domain.TodoEntity;
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.todoDtos.TodoResponseDto;
-import com.naisilva.todo.dtos.todoDtos.TodoRequestDto;
+import com.naisilva.todo.dtos.TodoResponseDto;
+import com.naisilva.todo.dtos.TodoRequestDto;
 import com.naisilva.todo.repositories.TodoRepository;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.UserRepository;

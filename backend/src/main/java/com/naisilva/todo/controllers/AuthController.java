@@ -1,7 +1,7 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.userDtos.LoginDto;
+import com.naisilva.todo.dtos.LoginDto;
 import com.naisilva.todo.services.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

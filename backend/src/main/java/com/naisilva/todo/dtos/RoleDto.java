@@ -1,4 +1,4 @@
-package com.naisilva.todo.dtos.userDtos;
+package com.naisilva.todo.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class RoleDto {
+
     private String name;
 
-    private String password;
 }

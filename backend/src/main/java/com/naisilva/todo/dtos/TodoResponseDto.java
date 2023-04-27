@@ -1,4 +1,4 @@
-package com.naisilva.todo.dtos.todoDtos;
+package com.naisilva.todo.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,6 @@ public class TodoResponseDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dateForFinalize;
     private boolean finished;
-
     private Long userId;
 
     public TodoResponseDto(Long id, String title, String description, Date dateForFinalize, boolean finished) {
