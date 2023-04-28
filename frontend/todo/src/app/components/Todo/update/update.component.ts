@@ -24,7 +24,7 @@ export class UpdateComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.todo.id = this.activatedRouter.snapshot.paramMap.get("id")!;
+    this.todo.id = parseInt(this.activatedRouter.snapshot.paramMap.get("id")!);
     this.findById();
 
   }

@@ -1,0 +1,32 @@
+.login-card {
+    width: 400px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.btn-login {
+    margin-left: 1.5rem;
+    display: flex;
+}
+
+.mat-card-title {
+    margin: 1.5rem auto;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.btn-login {
+    margin: 16px auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

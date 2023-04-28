@@ -5,6 +5,7 @@ import { Routes } from '@angular/router';
 import { FinalizadosComponent } from './components/Todo/finalizados/finalizados.component';
 import { CreateComponent } from './components/Todo/create/create.component';
 import { UpdateComponent } from './components/Todo/update/update.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path:'update/:id',
     component: UpdateComponent
+  },
+  {
+    path:'login',
+    component: LoginComponent
   }
 ]; 
 
