@@ -1,22 +1,42 @@
-<mat-card class="login-card">
-    <mat-card-header>
-        <mat-card-title class="mat-card-title">Login</mat-card-title>
-      </mat-card-header>
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <mat-card-content>
-        <mat-form-field class="form-field">
-          <input matInput type="text" id="username" name="username" [(ngModel)]="username" [required]="true" placeholder="Usuário">
-          <mat-error *ngIf="loginForm.controls['username'].invalid">Campo obrigatório</mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <input matInput type="password" id="password" name="password" [(ngModel)]="password" [required]="true" placeholder="Senha">
-          <mat-error *ngIf="loginForm.controls['password'].invalid">Campo obrigatório</mat-error>
-        </mat-form-field>
-      </mat-card-content>
-      <div class="btn-login">
-        <mat-card-actions>
-            <button mat-raised-button type="submit" class="btn-login" [disabled]="!loginForm.valid">Entrar</button>
-          </mat-card-actions>
-      </div>
-    </form>
-  </mat-card>
+<mat-card class="mat-elevation-z8 login-card">
+  <mat-card-header>
+    <mat-card-title class="mat-card-title">Login</mat-card-title>
+  </mat-card-header>
+  <form>
+    <mat-card-content>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="text"
+          id="rname"
+          name="name"
+          [(ngModel)]="login.name"
+          placeholder="Usuário"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="login.password"
+          [required]="true"
+          placeholder="Senha"
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <div class="btn-login-box">
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          type="submit"
+          class="btn-login"
+          (click)="authLogin()"
+        >
+          Entrar
+        </button>
+      </mat-card-actions>
+    </div>
+  </form>
+</mat-card>
