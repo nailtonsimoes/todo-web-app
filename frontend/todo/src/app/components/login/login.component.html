@@ -8,7 +8,7 @@
         <input
           matInput
           type="text"
-          id="rname"
+          id="name"
           name="name"
           [(ngModel)]="login.name"
           placeholder="Usuário"
@@ -35,7 +35,8 @@
           (click)="authLogin()"
         >
           Entrar
-        </button>
+        </button><br>
+        <span><a mat-button routerLink="/create-user">Criar conta de usuário</a></span><br>
       </mat-card-actions>
     </div>
   </form>

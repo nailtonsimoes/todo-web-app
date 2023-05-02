@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
       (res)=>{
         alert('Login Feito com sucesso!');
         this.router.navigate(['']);
-        console.log('sucesso: ' + res);
+      },
+      err =>{
+        alert('Erro na tentativa de Login..');
       }
     )
   }
