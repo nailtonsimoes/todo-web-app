@@ -9,7 +9,24 @@
 }
 
 mat-card-header{
-    margin-bottom: 1rem;
+    margin-bottom: .6rem;
+}
+
+img {
+  height: 3rem;
+}
+
+h1{
+  padding-left: 1.2rem;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(34, 70, 155);
+}
+
+.logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .form-field {

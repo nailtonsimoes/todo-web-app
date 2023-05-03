@@ -1,54 +1,60 @@
 <mat-card class="mat-elevation-z8 create-card">
-    <mat-card-header>
-      <mat-card-title class="mat-card-title">Criar Novo Usuário</mat-card-title>
-    </mat-card-header>
-    <form>
-      <mat-card-content>
-        <mat-form-field class="form-field">
-          <input
-            matInput
-            type="text"
-            id="name"
-            name="name"
-            [(ngModel)]="user.name"
-            placeholder="Insira seu nome de Usuário"
-          />
-        </mat-form-field>
-        <mat-form-field class="form-field">
-            <input
-              matInput
-              type="email"
-              id="email"
-              name="email"
-              [(ngModel)]="user.email"
-              [required]="true"
-              placeholder="Insira seu Email"
-            />
-          </mat-form-field>
-        <mat-form-field class="form-field">
-          <input
-            matInput
-            type="password"
-            id="password"
-            name="password"
-            [(ngModel)]="user.password"
-            [required]="true"
-            placeholder="Insira sua Senha"
-          />
-        </mat-form-field>
-      </mat-card-content>
-      <div class="btn-create-box">
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            type="submit"
-            class="btn-create"
-            (click)="cadastrar()"
-          >
-            Cadastrar Usuário
-          </button><br>
-          <span><a mat-button routerLink="/login">Voltar para tela de login</a></span><br>
-        </mat-card-actions>
-      </div>
-    </form>
-  </mat-card>
+  <div class="logo">
+    <img src="assets/img/logo.png" alt="" />
+    <h1>App Tarefas</h1>
+  </div>
+  <mat-card-header>
+    <mat-card-title class="mat-card-title">Criar Novo Usuário</mat-card-title>
+  </mat-card-header>
+  <form>
+    <mat-card-content>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="user.name"
+          placeholder="Insira seu nome de Usuário"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          [required]="true"
+          placeholder="Insira seu Email"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <input
+          matInput
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="user.password"
+          [required]="true"
+          placeholder="Insira sua Senha"
+        />
+      </mat-form-field>
+    </mat-card-content>
+    <div class="btn-create-box">
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          type="submit"
+          class="btn-create"
+          (click)="cadastrar()"
+        >
+          Cadastrar Usuário</button
+        ><br />
+        <span
+          ><a mat-button routerLink="/login">Voltar para tela de login</a></span
+        ><br />
+      </mat-card-actions>
+    </div>
+  </form>
+</mat-card>

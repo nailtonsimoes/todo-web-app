@@ -26,6 +26,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { UpdateComponent } from './components/Todo/update/update.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateUserComponent } from './components/login/create-user/create-user.component';
+import { HomeComponent } from './components/home/home.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CreateUserComponent } from './components/login/create-user/create-user.
     CreateComponent,
     UpdateComponent,
     LoginComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    HomeComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

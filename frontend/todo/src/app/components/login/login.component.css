@@ -1,45 +1,61 @@
 .login-card {
-    width: 400px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .form-field {
-    width: 100%;
-  }
-  
-  .btn-login-box mat-card-actions {
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-  }
-  
-  .mat-card-actions button {
-    width: 70%;
-    padding: 0.5rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-  }
-  
-  .btn-login:hover {
-    background: blueviolet;
-    color: aliceblue;
-  }
-  
-  .mat-card-title {
-    padding-left: 1.2rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(34, 70, 155);
-  }
+  width: 400px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  span a {
-    padding-left: 1.2rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(34, 70, 155);
-    
-  }
+img {
+  height: 3rem;
+}
+
+h1{
+  padding-left: 1.2rem;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(34, 70, 155);
+}
+
+.logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.btn-login-box mat-card-actions {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-card-actions button {
+  width: 70%;
+  padding: 0.5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.btn-login:hover {
+  background: blueviolet;
+  color: aliceblue;
+}
+
+.mat-card-title {
+  padding-left: 1.2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(34, 70, 155);
+}
+
+span a {
+  padding-left: 1.2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(34, 70, 155);
+}

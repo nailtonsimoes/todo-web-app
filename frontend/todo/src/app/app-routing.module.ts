@@ -7,32 +7,50 @@ import { CreateComponent } from "./components/Todo/create/create.component";
 import { UpdateComponent } from "./components/Todo/update/update.component";
 import { LoginComponent } from "./components/login/login.component";
 import { CreateUserComponent } from "./components/login/create-user/create-user.component";
+import { HomeComponent } from "./components/home/home.component";
+import { AuthComponent } from "./components/auth/auth.component";
+import { AuthGuard } from "./components/auth/auth.guard";
 
 const routes: Routes = [
   {
     path: "",
-    component: ReadAllComponent,
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        component: ReadAllComponent,
+      },
+      {
+        path: 'finalizados',
+        component: FinalizadosComponent,
+      },
+      {
+        path: 'create',
+        component: CreateComponent,
+      },
+      {
+        path: 'update/:id',
+        component: UpdateComponent,
+      }
+    ],
+    canActivate:[AuthGuard]
   },
   {
-    path: "finalizados",
-    component: FinalizadosComponent,
+    path: '',
+    component: AuthComponent,
+    children:[
+      {path: '', redirectTo: 'login', pathMatch: 'full'},
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'create-user',
+        component: CreateUserComponent
+      }
+    ]
   },
-  {
-    path: "create",
-    component: CreateComponent,
-  },
-  {
-    path: "update/:id",
-    component: UpdateComponent,
-  },
-  {
-    path: "login",
-    component: LoginComponent,
-  },
-  { 
-    path: "create-user",
-    component: CreateUserComponent,
-  }
+  
 ];
 
 @NgModule({
@@ -40,4 +58,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
