@@ -28,6 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CreateUserComponent } from './components/login/create-user/create-user.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AuthComponent } from './components/auth/auth.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

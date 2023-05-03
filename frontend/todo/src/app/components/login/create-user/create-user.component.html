@@ -6,7 +6,7 @@
   <mat-card-header>
     <mat-card-title class="mat-card-title">Criar Novo Usuário</mat-card-title>
   </mat-card-header>
-  <form>
+  <form [formGroup]="form" (ngSubmit)="cadastrar()">
     <mat-card-content>
       <mat-form-field class="form-field">
         <input
@@ -14,9 +14,12 @@
           type="text"
           id="name"
           name="name"
-          [(ngModel)]="user.name"
+          formControlName="name"
           placeholder="Insira seu nome de Usuário"
         />
+        <mat-error *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+          O campo nome é obrigatório.
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <input
@@ -24,10 +27,12 @@
           type="email"
           id="email"
           name="email"
-          [(ngModel)]="user.email"
-          [required]="true"
+          formControlName="email"
           placeholder="Insira seu Email"
         />
+        <mat-error *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+          O campo email é obrigatório e precisa ser um email válido.
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
         <input
@@ -35,25 +40,18 @@
           type="password"
           id="password"
           name="password"
-          [(ngModel)]="user.password"
-          [required]="true"
+          formControlName="password"
           placeholder="Insira sua Senha"
         />
+        <mat-error *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+          O campo senha é obrigatório.
+        </mat-error>
       </mat-form-field>
     </mat-card-content>
     <div class="btn-create-box">
       <mat-card-actions>
-        <button
-          mat-raised-button
-          type="submit"
-          class="btn-create"
-          (click)="cadastrar()"
-        >
-          Cadastrar Usuário</button
-        ><br />
-        <span
-          ><a mat-button routerLink="/login">Voltar para tela de login</a></span
-        ><br />
+        <button mat-raised-button type="submit" class="btn-create">Cadastrar Usuário</button><br />
+        <span><a mat-button routerLink="/login">Voltar para tela de login</a></span><br />
       </mat-card-actions>
     </div>
   </form>
