@@ -27,10 +27,8 @@ export class CreateUserComponent implements OnInit {
       (res)=>{
         alert('Usuário registrado com sucesso!');
         this.router.navigate(['login']);
-        console.log(res);
       },
       err =>{
-        console.log(err);
         alert('Erro ao registrar Usuário..');
       }
     )

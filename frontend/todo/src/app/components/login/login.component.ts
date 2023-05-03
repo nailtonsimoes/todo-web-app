@@ -26,11 +26,9 @@ export class LoginComponent implements OnInit {
     this.service.authentication(this.login).subscribe(
       (res)=>{
         alert('Login Feito com sucesso!');
-        console.log(res);
         this.router.navigate(['']);
       },
       err =>{
-        console.log(err);
         alert('Erro na tentativa de Login..');
       }
     )

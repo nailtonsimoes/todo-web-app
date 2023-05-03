@@ -17,7 +17,6 @@ export class FinalizadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.findAll();
-//      this.findAllClose();
   }
 
   findAll(): void {
@@ -30,19 +29,6 @@ export class FinalizadosComponent implements OnInit {
     });
   }
   
-
- /* findAllClose(): void{
-    this.service.findAllClose().subscribe(
-      (res)=>{
-        res.forEach((todo) => {
-            this.list.push(todo);
-        });
-        console.log(this.list);
-      }
-    )
-  }
-  */
-
 
   voltar():void {
     this.router.navigate(['']);
