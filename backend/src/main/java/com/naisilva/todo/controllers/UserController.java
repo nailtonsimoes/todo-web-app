@@ -94,7 +94,6 @@ public class UserController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a User", description = "Deleta um usuario")
     @ResponseStatus(HttpStatus.OK)
-    @RolesAllowed("ROLE_ADMIN")
     public void deleteUserById(@PathVariable Long id){
         userService.deleteUser(id);
     }
