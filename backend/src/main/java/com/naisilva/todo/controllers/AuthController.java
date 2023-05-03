@@ -1,7 +1,8 @@
 package com.naisilva.todo.controllers;
 
 import com.naisilva.todo.domain.UserEntity;
-import com.naisilva.todo.dtos.LoginDto;
+import com.naisilva.todo.dtos.LoginRequestDto;
+import com.naisilva.todo.dtos.LoginResponseDto;
 import com.naisilva.todo.services.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,7 +32,7 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Authentication route", description = "Responsavel pela autenticação de usuario")
     @ResponseStatus(HttpStatus.OK)
-    public String login(@RequestBody LoginDto loginDto) {
+    public LoginResponseDto login(@RequestBody LoginRequestDto loginDto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getName(), loginDto.getPassword());
 
@@ -40,6 +41,16 @@ public class AuthController {
 
         var user = (UserEntity) authenticate.getPrincipal();
 
-        return tokenService.tokenGenerate(user);
+        user.setToken(tokenService.tokenGenerate(user));
+
+        LoginResponseDto responseDto = new LoginResponseDto();
+
+        responseDto.setUserId(user.getId());
+        responseDto.setName(user.getName());
+        responseDto.setPassword(user.getPassword());
+        responseDto.setEmail(user.getEmail());
+        responseDto.setToken(user.getToken());
+
+        return responseDto;
     }
 }

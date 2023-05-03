@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-@OpenAPIDefinition(info = @Info(title = "Web TodoEntity App API", version = "0.1", description = "Aplicação para cadastro de tarefas"))
+@OpenAPIDefinition(info = @Info(title = "Todo Web App API", version = "0.1", description = "Aplicação para cadastro de tarefas"))
 @SpringBootApplication
 public class TodoApplication {
 
