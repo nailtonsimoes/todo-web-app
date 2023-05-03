@@ -33,7 +33,7 @@ export class CreateComponent implements OnInit {
       err =>{
         alert('Erro ao criar tarefa!');
       }
-    )
+    );
   }
 
   formataData(): void {
