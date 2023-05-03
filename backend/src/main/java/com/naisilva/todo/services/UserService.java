@@ -53,6 +53,14 @@ public class UserService {
             throw new RuntimeException("usuario ja existe");
         }
 
+        if (request.getName().length() < 3) {
+            throw new RuntimeException("nome precisar ter no min que 3 caracteres");
+        }
+
+        if (request.getPassword().length() < 6) {
+            throw new RuntimeException("senha precisar ter no min que 6 caracteres");
+        }
+
         request.setPassword(passwordEncoder().encode(request.getPassword()));
 
         UserEntity user = new UserEntity();
