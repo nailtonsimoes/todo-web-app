@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
       const res = await this.service.authentication(this.login);
       console.log(`login efetuado:${res}`);
       alert('Login feito com sucesso!');
-      this.service.getUserIdofToken();
-     // this.router.navigate(['']);
+      this.router.navigate(['']);
     } catch (err) {
       console.log(err);
       alert('Erro na tentativa de Login..');
