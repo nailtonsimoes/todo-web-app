@@ -34,6 +34,10 @@ h1{
   justify-content: center;
 }
 
+.btn-login-box{
+ margin-top: 2rem;
+}
+
 .mat-card-actions button {
   width: 70%;
   padding: 0.5rem 2rem;

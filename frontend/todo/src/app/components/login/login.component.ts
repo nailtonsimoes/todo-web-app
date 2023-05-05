@@ -22,15 +22,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  authLogin(){
-    this.service.authentication(this.login).subscribe(
-      (res)=>{
-        alert('Login Feito com sucesso!');
-        this.router.navigate(['']);
-      },
-      err =>{
-        alert('Erro na tentativa de Login..');
-      }
-    )
+  async authLogin() {
+    try {
+      const res = await this.service.authentication(this.login);
+      console.log(`login efetuado:${res}`);
+      alert('Login feito com sucesso!');
+      this.service.getUserIdofToken();
+     // this.router.navigate(['']);
+    } catch (err) {
+      console.log(err);
+      alert('Erro na tentativa de Login..');
+    }
   }
 }

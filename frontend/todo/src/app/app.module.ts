@@ -29,6 +29,7 @@ import { CreateUserComponent } from './components/login/create-user/create-user.
 import { HomeComponent } from './components/home/home.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    HttpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

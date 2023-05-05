@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
 
   constructor() { }
-
+  //Componente usado apenas como componente pai da rota de login
   ngOnInit(): void {
   }
 
