@@ -3,6 +3,6 @@ export interface Todo {
     title: String,
     description?: String,
     dateForFinalize: any,
-    finshed: Boolean,
+    finished: Boolean,
     userId?: Number
 }

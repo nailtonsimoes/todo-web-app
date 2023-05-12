@@ -22,8 +22,9 @@ export class FinalizadosComponent implements OnInit {
   findAll(): void {
     this.service.findAll().subscribe((res)=>{
       res.forEach((todo) => {
-        if(todo.finshed){
+        if(todo.finished){
           this.listFinished.push(todo);
+          console.log(this.listFinished);
         }
       });
     });

@@ -119,34 +119,9 @@ public class UserService {
 
     public List<UserResponseDto> listAllUsers() {
         List<UserEntity> listUsersDB = userRepository.findAll();
-
-        List<UserResponseDto> listUsersResponse = listUsersDB
-                .stream()
-                .map(user -> new UserResponseDto(
-                        user.getId(),
-                        user.getName(),
-                        user.getPassword(),
-                        user.getEmail(),
-                        user.getRoles()
-                                .stream()
-                                .map(
-                                        role -> new RoleDto(role.getName().toString())
-                                ).collect(Collectors.toList()),
-                        user.getToken(),
-                        user.getTodos()
-                                .stream()
-                                .map(
-                                        todo -> new TodoResponseDto(
-                                                todo.getId(),
-                                                todo.getTitle(),
-                                                todo.getDescription(),
-                                                todo.getDateForFinalize(),
-                                                todo.getFinished(),
-                                                todo.getUser().getId()
-                                        )
-                                ).collect(Collectors.toList()))).collect(Collectors.toList());
-
-        return listUsersResponse;
+        return listUsersDB.stream()
+                .map(user -> mapper.map(user, UserResponseDto.class))
+                .collect(Collectors.toList());
     }
 
     public void updateUser(Long id, UserRequestDto request) {

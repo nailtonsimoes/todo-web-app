@@ -70,13 +70,12 @@ export class LoginService {
     return true;
   }
 
-  getUserIdofToken(): string {
+  getUserIdbyToken(): string {
     const token = this.getAuthorizationToken();
     if (!token) {
       throw new Error('Token de autorização não encontrado');
     }
     const decoded: any = jwtDecode(token);
-    console.log(decoded.id);
     return decoded.id;
   }
 

@@ -14,7 +14,7 @@ export class UpdateComponent implements OnInit {
     title:'',
     description:'',
     dateForFinalize: new Date(),
-    finshed: false
+    finished: false
   };
 
   constructor(

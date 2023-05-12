@@ -14,7 +14,7 @@ export class CreateComponent implements OnInit {
     title:'',
     description:'',
     dateForFinalize: new Date(),
-    finshed: false
+    finished: false
   };
 
   constructor(private router: Router, private service: TodoService) { }
