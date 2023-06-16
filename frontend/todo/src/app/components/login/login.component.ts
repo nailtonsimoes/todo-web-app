@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginDto } from 'src/app/dtos/login-dto';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
     password: ''
   }
   
-  constructor(private service: LoginService, private router: Router) { 
+  constructor(private service: LoginService, private router: Router, private _snackBar: MatSnackBar) { 
    
   }
   
@@ -26,11 +27,14 @@ export class LoginComponent implements OnInit {
     try {
       const res = await this.service.authentication(this.login);
       console.log(`login efetuado:${res}`);
-      alert('Login feito com sucesso!');
+      this.openSnackBar('Login feito com sucesso!');
       this.router.navigate(['']);
     } catch (err) {
-      console.log(err);
-      alert('Erro na tentativa de Login..');
+      this.openSnackBar('Erro na tentativa de Login..');
     }
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 3000 });
   }
 }

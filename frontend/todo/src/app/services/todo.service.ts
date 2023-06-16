@@ -14,7 +14,7 @@ export class TodoService {
 
   baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient, private snack: MatSnackBar, private loginService: LoginService) { }
+  constructor(private http: HttpClient, private loginService: LoginService) { }
 
   findAll():Observable<Todo[]>{
     const userId = this.loginService.getUserIdbyToken();
@@ -42,12 +42,6 @@ export class TodoService {
     const userId = this.loginService.getUserIdbyToken();
     const createUrl = `${this.baseUrl}/todos/${userId}/create`
     return this.http.post<Todo>(createUrl, todo);
-  }
-
-  message(msg: String):void {
-    this.snack.open(`${msg}`, 'fechar',{
-      duration: 4000,
-    })
   }
 
 }
