@@ -53,7 +53,7 @@ mat-card-actions {
   padding: 0.5rem 2rem;
 }
 
-.btn-login button:hover {
+.btn-login button:not([disabled]):hover {
   background: blueviolet;
   color: aliceblue;
 }
