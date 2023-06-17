@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       this.openSnackBar('Login feito com sucesso!');
       this.router.navigate(['']);
     } catch (err) {
+      console.error(err);
       this.openSnackBar('Erro na tentativa de Login..');
     }
   }

@@ -31,20 +31,14 @@
       </mat-form-field>
     </mat-card-content>
     <div class="btn-login-box">
-      <mat-card-actions>
-        <button
-          mat-raised-button
-          type="submit"
-          class="btn-login"
-          (click)="authLogin()">
-          Entrar
-        </button>
-        <br/>
+      <div class="btn-login">
+        <button mat-raised-button type="submit" (click)="authLogin()">Entrar</button>
+      </div>
+      <div class="create-account-link">
         <span>
           <a mat-button routerLink="/create-user">Criar conta de usuário</a>
         </span>
-        <br />
-      </mat-card-actions>
+      </div>
     </div>
   </form>
 </mat-card>
