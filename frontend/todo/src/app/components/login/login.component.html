@@ -6,33 +6,20 @@
   <mat-card-header>
     <mat-card-title class="mat-card-title">Login</mat-card-title>
   </mat-card-header>
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="authLogin()">
     <mat-card-content>
       <mat-form-field class="form-field">
-        <input
-          matInput
-          type="text"
-          id="name"
-          name="name"
-          [(ngModel)]="login.name"
-          placeholder="Usuário"
-        />
+        <input matInput type="text" formControlName="name" placeholder="Usuário" required />
+        <mat-error *ngIf="loginForm.get('name')?.invalid">Usuário é obrigatório</mat-error>
       </mat-form-field>
       <mat-form-field class="form-field">
-        <input
-          matInput
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="login.password"
-          [required]="true"
-          placeholder="Senha"
-        />
+        <input matInput type="password" formControlName="password" placeholder="Senha" required />
+        <mat-error *ngIf="loginForm.get('password')?.invalid">Senha é obrigatória</mat-error>
       </mat-form-field>
     </mat-card-content>
     <div class="btn-login-box">
       <div class="btn-login">
-        <button mat-raised-button type="submit" (click)="authLogin()">Entrar</button>
+        <button mat-raised-button type="submit" [disabled]="loginForm.invalid">Entrar</button>
       </div>
       <div class="create-account-link">
         <span>

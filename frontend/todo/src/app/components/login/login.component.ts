@@ -3,6 +3,7 @@ import { LoginDto } from 'src/app/dtos/login-dto';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,19 +12,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
 
-  login: LoginDto = {
-    name: '',
-    password: ''
-  }
+  loginForm!: FormGroup;
 
-  constructor(private service: LoginService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: LoginService,
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   async authLogin() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     try {
-      const res = await this.service.authentication(this.login);
+      const res = await this.service.authentication(this.loginForm.value);
       console.log(`login efetuado:${res}`);
       this.openSnackBar('Login feito com sucesso!');
       this.router.navigate(['']);
