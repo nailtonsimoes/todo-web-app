@@ -2,9 +2,13 @@ img {
     height: 3rem;
 }
 
-.header {
+mat-toolbar {
     justify-content: center;
-    height: 10%;
+    max-height: 100%;
+}
+
+.custom-toolbar {
+    height: 5rem;
 }
 
 spam {
