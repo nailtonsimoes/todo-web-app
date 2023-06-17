@@ -2,6 +2,7 @@ import { TodoService } from 'src/app/services/todo.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +18,7 @@ export class CreateComponent implements OnInit {
     finished: false
   };
 
-  constructor(private router: Router, private service: TodoService) { }
+  constructor(private router: Router, private service: TodoService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -27,11 +28,11 @@ export class CreateComponent implements OnInit {
     this.formataData();
     this.service.create(this.todo).subscribe(
       (res)=>{
-        alert('Tarefa Criada com sucesso.');
+        this.openSnackBar('Tarefa Criada com sucesso.');
         this.router.navigate(['']);
       },
       err =>{
-        alert('Erro ao criar tarefa!');
+        this.openSnackBar('Erro ao criar tarefa!');
       }
     );
   }
@@ -43,6 +44,10 @@ export class CreateComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['']);
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 3000 });
   }
 
 }

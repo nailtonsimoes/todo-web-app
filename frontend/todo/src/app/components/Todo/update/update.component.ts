@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from 'src/app/models/todo';
 import { TodoService } from 'src/app/services/todo.service';
@@ -20,7 +21,8 @@ export class UpdateComponent implements OnInit {
   constructor(
     private router: Router,
     private service: TodoService,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -41,11 +43,11 @@ export class UpdateComponent implements OnInit {
     this.formataData();
     this.service.update(this.todo).subscribe(
       (res)=>{
-        alert('Informações Atualizadas com sucesso.');
+        this.openSnackBar('Informações Atualizadas com sucesso.');
         this.router.navigate(['']);
       },
       err =>{
-        alert('Erro ao Atualizar tarefa!');
+        this.openSnackBar('Erro ao Atualizar tarefa!');
       }
     )
   }
@@ -57,6 +59,10 @@ export class UpdateComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['']);
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 3000 });
   }
 
 }

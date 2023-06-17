@@ -3,6 +3,7 @@ import { UserRequestDto } from 'src/app/dtos/user-request-dto';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-user',
@@ -13,7 +14,7 @@ export class CreateUserComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private router: Router, private service: LoginService, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private service: LoginService, private formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.email]],
@@ -26,7 +27,7 @@ export class CreateUserComponent implements OnInit {
 
   cadastrar(){
     if(this.form.invalid){
-      alert('Preencha todos os campos obrigatórios');
+      this.openSnackBar('Preencha todos os campos obrigatórios');
       return;
     };
 
@@ -39,13 +40,16 @@ export class CreateUserComponent implements OnInit {
 
     this.service.createUser(user).subscribe(
       (res)=>{
-        alert('Usuário registrado com sucesso!');
+        this.openSnackBar('Usuário registrado com sucesso!');
         this.router.navigate(['login']);
       },
       err =>{
-        console.log(err);
-        alert('Erro ao registrar Usuário..');
+        this.openSnackBar('Erro ao registrar Usuário..');
       }
     );
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 3000 });
   }
 }

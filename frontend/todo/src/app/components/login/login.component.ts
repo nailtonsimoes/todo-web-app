@@ -10,16 +10,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   login: LoginDto = {
     name: '',
     password: ''
   }
-  
-  constructor(private service: LoginService, private router: Router, private _snackBar: MatSnackBar) { 
-   
-  }
-  
+
+  constructor(private service: LoginService, private router: Router, private _snackBar: MatSnackBar) { }
+
   ngOnInit(): void {
   }
 

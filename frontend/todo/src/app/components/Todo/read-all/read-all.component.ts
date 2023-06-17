@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Todo } from '../../../models/todo';
 import { TodoService } from '../../../services/todo.service';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-read-all',
@@ -15,7 +16,7 @@ export class ReadAllComponent implements OnInit {
   list: Todo[] = [];
   listFinished: Todo[] = [];
 
-  constructor(private service: TodoService, private router: Router) { }
+  constructor(private service: TodoService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.findAll();
@@ -51,7 +52,7 @@ export class ReadAllComponent implements OnInit {
     this.service.delete(id).subscribe(
       (res) => {
         if (res === null) {
-          alert('Tarefa Deletada com Sucesso!');
+          this.openSnackBar('Tarefa Deletada com Sucesso!');
           this.list = this.list.filter(todo => todo.id !== id);
         }
       }
@@ -62,7 +63,7 @@ export class ReadAllComponent implements OnInit {
     item.finished = true;
     this.service.update(item).subscribe(
       () => {
-        alert('Tarefa Finalizada com Sucesso!');
+        this.openSnackBar('Tarefa Finalizada com Sucesso!');
         this.list = this.list.filter(todo => todo.id !== item.id);
         this.closed++;
       }
@@ -71,6 +72,10 @@ export class ReadAllComponent implements OnInit {
 
   navegateToFinished(): void {
     this.router.navigate(['finalizados']);
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 3000 });
   }
 
 }
