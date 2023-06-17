@@ -49,7 +49,7 @@ mat-card-actions {
 
 .btn-login button {
   width: 100%;
-  max-width: 20rem; /* Ajuste o valor conforme necessário */
+  max-width: 20rem;
   padding: 0.5rem 2rem;
 }
 
@@ -73,6 +73,6 @@ span a {
 
 @media (max-width: 600px) {
   .login-card {
-    width: 75%; /* Ajuste o valor conforme necessário */
+    width: 75%;
   }
 }
