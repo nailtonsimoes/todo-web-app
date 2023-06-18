@@ -1,15 +1,20 @@
 package com.naisilva.todo.domain;
 
 import com.naisilva.todo.config.enums.StatusEmail;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "TB_EMAIL")
 public class EmailEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

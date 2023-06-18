@@ -11,9 +11,9 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "TB_ROLE")
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "TB_ROLE")
 public class RoleEntity implements GrantedAuthority ,Serializable {
 
     private static final long serialVersionUID = 1L;

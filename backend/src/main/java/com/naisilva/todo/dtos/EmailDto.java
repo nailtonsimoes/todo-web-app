@@ -12,16 +12,16 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailDto {
-    @NotBlank
+    @NotBlank(message = "Insira o nome do dono")
     private String ownerRef;
-    @NotBlank
+    @NotBlank(message = "O Email do destinatario é obrigatório.")
     @Email
     private String emailFrom;
-    @NotBlank
+    @NotBlank(message = "O Email de destino é obrigatório.")
     @Email
     private String emailTo;
-    @NotBlank
+    @NotBlank(message = "O Titulo do Email é obrigatório.")
     private String subject;
-    @NotBlank
+    @NotBlank(message = "Escreva uma menssagem antes de enviar o Email.")
     private String text;
 }
