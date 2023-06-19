@@ -1,26 +1,38 @@
-<form>
-    <h1>Criando Tarefa</h1>
-    <mat-form-field class="data-finalizar" appearance="fill">
-        <mat-label>Data para finalizar</mat-label>
-        <input [(ngModel)]="todo.dateForFinalize" name="todo.dataParaFinalizar" matInput [matDatepicker]="dp3">
-        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3></mat-datepicker>
+<form [formGroup]="todoForm" (ngSubmit)="create()">
+  <h1>Criando Tarefa</h1>
+  <mat-form-field class="data-finalizar" appearance="fill">
+    <mat-label>Data para finalizar</mat-label>
+    <input formControlName="dataParaFinalizar" matInput [matDatepicker]="dp3" />
+
+    <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+    <mat-datepicker #dp3></mat-datepicker>
+  </mat-form-field>
+
+  <div class="forms">
+    <mat-form-field class="form">
+      <mat-label>Titulo</mat-label>
+      <textarea
+        formControlName="name"
+        matInput
+        placeholder="Ex. estudar spring boot"
+      ></textarea>
+      <mat-error *ngIf="todoForm.get('name')?.invalid"
+        >O Titulo da Tarefa obrigatório</mat-error>
     </mat-form-field>
 
-    <div class="forms">
-        <mat-form-field class="form">
-            <mat-label>Titulo</mat-label>
-            <textarea [(ngModel)]="todo.title" name="todo.name" matInput placeholder="Ex. estudar spring boot"></textarea>
-        </mat-form-field>
-
-        <mat-form-field class="form">
-            <mat-label>Descrição</mat-label>
-            <textarea [(ngModel)]="todo.description" name="todo.descricao" matInput placeholder="Ex. aplicar padrões de arquitetura"></textarea>
-        </mat-form-field>
-    </div>
-
-    <div class="buttons">
-        <button mat-stroked-button color="primary" (click)="create()">Criar</button>
-        <button mat-stroked-button (click)="cancel()" color="warn">Cancelar</button>
-    </div>
+    <mat-form-field class="form">
+      <mat-label>Descrição</mat-label>
+      <textarea
+        formControlName="descricao"
+        matInput
+        placeholder="Ex. aplicar padrões de arquitetura"
+      ></textarea>
+      <mat-error *ngIf="todoForm.get('descricao')?.invalid"
+        >A descrição da Tarefa é obrigatório</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-stroked-button color="primary" type="submit">Criar</button>
+    <button mat-stroked-button routerLink="" color="warn">Cancelar</button>
+  </div>
 </form>

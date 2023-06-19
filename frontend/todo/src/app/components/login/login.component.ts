@@ -30,16 +30,15 @@ export class LoginComponent implements OnInit {
 
   async authLogin() {
     if (this.loginForm.invalid) {
+      this.openSnackBar('Dados invalidos!');
       return;
     }
 
     try {
       const res = await this.service.authentication(this.loginForm.value);
-      console.log(`login efetuado:${res}`);
       this.openSnackBar('Login feito com sucesso!');
       this.router.navigate(['']);
     } catch (err) {
-      console.error(err);
       this.openSnackBar('Erro na tentativa de Login..');
     }
   }

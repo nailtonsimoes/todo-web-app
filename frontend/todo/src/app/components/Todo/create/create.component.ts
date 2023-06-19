@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -10,40 +11,56 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+  
+  todoForm!: FormGroup;
 
   todo: Todo = {
-    title:'',
-    description:'',
+    title: '',
+    description: '',
     dateForFinalize: new Date(),
     finished: false
   };
 
-  constructor(private router: Router, private service: TodoService, private _snackBar: MatSnackBar) { }
+  constructor(private router: Router, private service: TodoService, private _snackBar: MatSnackBar, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.todoForm = this.formBuilder.group({
+      dataParaFinalizar: ['', Validators.required],
+      name: ['', Validators.required],
+      descricao: ['', Validators.required],
+    })
   }
 
-  create(){
-    this.formataData();
+  create() {
+
+    if (this.todoForm.invalid) {
+      this.openSnackBar('Dados invalidos! Preencha todos os campos corretamente.');
+      return;
+    }
+
+    this.todo = {
+      title: this.todoForm.value.name,
+      description: this.todoForm.value.descricao,
+      dateForFinalize: this.todoForm.value.dataParaFinalizar,
+      finished: false
+    };
+
+    this.formataData(this.todo);
+  
     this.service.create(this.todo).subscribe(
-      (res)=>{
+      (res) => {
         this.openSnackBar('Tarefa Criada com sucesso.');
         this.router.navigate(['']);
       },
-      err =>{
+      err => {
         this.openSnackBar('Erro ao criar tarefa!');
       }
     );
   }
 
-  formataData(): void {
-    let data = new Date(this.todo.dateForFinalize);
-    this.todo.dateForFinalize = `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
-  }
-
-  cancel(): void {
-    this.router.navigate(['']);
+  formataData(todo: Todo): void {
+    let data = new Date(todo.dateForFinalize);
+    this.todo.dateForFinalize = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
   }
 
   openSnackBar(message: string) {

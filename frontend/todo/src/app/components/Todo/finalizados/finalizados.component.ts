@@ -24,7 +24,6 @@ export class FinalizadosComponent implements OnInit {
       res.forEach((todo) => {
         if(todo.finished){
           this.listFinished.push(todo);
-          console.log(this.listFinished);
         }
       });
     });

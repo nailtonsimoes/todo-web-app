@@ -19,7 +19,6 @@ export class TodoService {
   findAll():Observable<Todo[]>{
     const userId = this.loginService.getUserIdbyToken();
     const findAllUrl = `${this.baseUrl}/todos/${userId}/listAllByUserId`;
-    console.log(findAllUrl);
     return this.http.get<Todo[]>(findAllUrl);
   }
 

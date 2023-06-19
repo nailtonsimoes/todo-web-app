@@ -29,7 +29,6 @@ export class ReadAllComponent implements OnInit {
         if (todo.finished) {
           this.listFinished.push(todo);
         } else {
-          console.log(todo);
           this.list.push(todo);
         }
       });
