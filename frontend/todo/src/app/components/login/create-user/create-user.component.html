@@ -17,7 +17,12 @@
           formControlName="name"
           placeholder="Insira seu nome de Usuário"
         />
-        <mat-error *ngIf="form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched)">
+        <mat-error
+          *ngIf="
+            form.controls['name'].invalid &&
+            (form.controls['name'].dirty || form.controls['name'].touched)
+          "
+        >
           O campo nome é obrigatório.
         </mat-error>
       </mat-form-field>
@@ -30,7 +35,12 @@
           formControlName="email"
           placeholder="Insira seu Email"
         />
-        <mat-error *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)">
+        <mat-error
+          *ngIf="
+            form.controls['email'].invalid &&
+            (form.controls['email'].dirty || form.controls['email'].touched)
+          "
+        >
           O campo email é obrigatório e precisa ser um email válido.
         </mat-error>
       </mat-form-field>
@@ -43,16 +53,27 @@
           formControlName="password"
           placeholder="Insira sua Senha"
         />
-        <mat-error *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)">
+        <mat-error
+          *ngIf="
+            form.controls['password'].invalid &&
+            (form.controls['password'].dirty ||
+              form.controls['password'].touched)
+          "
+        >
           O campo senha é obrigatório.
         </mat-error>
       </mat-form-field>
     </mat-card-content>
     <div class="btn-create-box">
-      <mat-card-actions>
-        <button mat-raised-button type="submit" class="btn-create">Cadastrar Usuário</button><br />
-        <span><a mat-button routerLink="/login">Voltar para tela de login</a></span><br />
-      </mat-card-actions>
+      <div class="btn-create">
+        <button mat-raised-button type="submit" class="btn-create">
+          Cadastrar Usuário</button><br/>
+      </div>
+      <div class="btn-voltar">
+        <span>
+          <a mat-button routerLink="/login">Voltar para tela de login</a>
+        </span><br/>
+      </div>
     </div>
   </form>
 </mat-card>

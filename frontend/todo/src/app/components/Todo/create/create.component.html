@@ -2,7 +2,7 @@
   <h1>Criando Tarefa</h1>
   <mat-form-field class="data-finalizar" appearance="fill">
     <mat-label>Data para finalizar</mat-label>
-    <input formControlName="dataParaFinalizar" matInput [matDatepicker]="dp3" />
+    <input formControlName="dateForFinalize" matInput [matDatepicker]="dp3" />
 
     <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
     <mat-datepicker #dp3></mat-datepicker>
@@ -12,22 +12,22 @@
     <mat-form-field class="form">
       <mat-label>Titulo</mat-label>
       <textarea
-        formControlName="name"
+        formControlName="title"
         matInput
         placeholder="Ex. estudar spring boot"
       ></textarea>
-      <mat-error *ngIf="todoForm.get('name')?.invalid"
+      <mat-error *ngIf="todoForm.get('title')?.invalid"
         >O Titulo da Tarefa obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field class="form">
       <mat-label>Descrição</mat-label>
       <textarea
-        formControlName="descricao"
+        formControlName="description"
         matInput
         placeholder="Ex. aplicar padrões de arquitetura"
       ></textarea>
-      <mat-error *ngIf="todoForm.get('descricao')?.invalid"
+      <mat-error *ngIf="todoForm.get('description')?.invalid"
         >A descrição da Tarefa é obrigatório</mat-error>
     </mat-form-field>
   </div>

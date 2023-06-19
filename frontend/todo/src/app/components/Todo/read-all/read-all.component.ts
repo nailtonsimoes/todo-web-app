@@ -47,13 +47,15 @@ export class ReadAllComponent implements OnInit {
   }
 
   delete(id: any): void {
-
     this.service.delete(id).subscribe(
       (res) => {
         if (res === null) {
           this.openSnackBar('Tarefa Deletada com Sucesso!');
           this.list = this.list.filter(todo => todo.id !== id);
         }
+      },
+      (err) => {
+        this.openSnackBar('Erro ao deletar tarefa!');
       }
     )
   }

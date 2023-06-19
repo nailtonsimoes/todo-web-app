@@ -25,9 +25,9 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
-      dataParaFinalizar: ['', Validators.required],
-      name: ['', Validators.required],
-      descricao: ['', Validators.required],
+      dateForFinalize: ['', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
     })
   }
 
@@ -39,9 +39,9 @@ export class CreateComponent implements OnInit {
     }
 
     this.todo = {
-      title: this.todoForm.value.name,
-      description: this.todoForm.value.descricao,
-      dateForFinalize: this.todoForm.value.dataParaFinalizar,
+      title: this.todoForm.value.title,
+      description: this.todoForm.value.description,
+      dateForFinalize: this.todoForm.value.dateForFinalize,
       finished: false
     };
 
@@ -52,7 +52,7 @@ export class CreateComponent implements OnInit {
         this.openSnackBar('Tarefa Criada com sucesso.');
         this.router.navigate(['']);
       },
-      err => {
+      (err) => {
         this.openSnackBar('Erro ao criar tarefa!');
       }
     );

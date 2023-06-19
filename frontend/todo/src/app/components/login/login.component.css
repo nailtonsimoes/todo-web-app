@@ -73,6 +73,9 @@ span a {
 
 @media (max-width: 600px) {
   .login-card {
-    width: 75%;
+    width: 80%;
+    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
   }
 }

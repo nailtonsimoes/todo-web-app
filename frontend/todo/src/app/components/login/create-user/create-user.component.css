@@ -48,11 +48,20 @@ h1{
   align-items: center;
   margin: 0 auto;
 }
-.btn-create-box{
-  margin-top: 4rem;
+
+.btn-create{
+  margin-bottom: 0.5rem;
 }
 
-.btn-create:hover {
+.btn-create-box{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.btn-create button:hover {
   background: blueviolet;
   color: aliceblue;
 }
@@ -68,4 +77,13 @@ span a {
   padding-left: 1.2rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(34, 70, 155);
+}
+
+@media (max-width: 600px) {
+  .create-card {
+    width: 80%;
+    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
 }
