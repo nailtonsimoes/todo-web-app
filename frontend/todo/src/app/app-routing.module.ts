@@ -10,6 +10,7 @@ import { CreateUserComponent } from "./components/login/create-user/create-user.
 import { HomeComponent } from "./components/home/home.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { AuthGuard } from "./components/auth/auth.guard";
+import { ForgotPasswordComponent } from "./components/login/forgot-password/forgot-password.component";
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: 'create-user',
         component: CreateUserComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
       }
     ]
   },

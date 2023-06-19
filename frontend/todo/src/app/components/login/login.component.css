@@ -64,11 +64,10 @@ mat-card-actions {
   color: rgb(34, 70, 155);
 }
 
-span a {
-  padding-left: 1.2rem;
+span a, p {
+  font-size: 16px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(34, 70, 155);
-  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 600px) {
