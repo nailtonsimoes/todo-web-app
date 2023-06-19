@@ -87,7 +87,7 @@ public class TodoController {
 
     @Operation(summary = "Delete a TODO by TodoId", description = "Deleta uma tarefa")
     @DeleteMapping(value = "/{id}/delete")
-    @ResponseStatus(HttpStatus.GONE)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteTodoById(@PathVariable Long id) {
         todoService.deleteTodo(id);
     }
