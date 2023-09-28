@@ -7,21 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
-        info = @Info(
-                title = "My API",
-                version = "1.0.0",
-                description = "A description of my API"
-        )
+        info = @Info(title = "Todo Web App API", version = "0.1", description = "Aplicação para cadastro de tarefas")
 )
 @Configuration
 public class SwaggerConfig {
-        @Bean
-        public GroupedOpenApi publicApi() {
-                return GroupedOpenApi.builder()
-                        .group("com.naisilva.todo.controllers")
-                        .pathsToMatch("/api/**")
-                        .build();
-        }
+    @Bean
+    public GroupedOpenApi publicApi() {
+        return GroupedOpenApi.builder()
+                .group("com.naisilva.todo.controllers")
+                .pathsToMatch("/api/**")
+                .build();
+    }
 
         /*
          O swagger ja funciona com a classe SwaggerConfig vazia, apenas com as notações
