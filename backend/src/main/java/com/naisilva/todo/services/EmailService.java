@@ -22,9 +22,13 @@ public class EmailService {
     @Autowired
     private final UserRepository userRepository;
 
-    public EmailService(UserRepository userRepository, EmailRepository emailRepository) {
+    @Autowired
+    private final TokenService tokenService;
+
+    public EmailService(UserRepository userRepository, EmailRepository emailRepository, TokenService tokenService) {
         this.emailRepository = emailRepository;
         this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
 
     @Autowired
@@ -40,7 +44,7 @@ public class EmailService {
                         )
                 );
 
-        String url = "http://localhost:4200/recover-password?id=" + user.getId().toString();
+        String url = "http://localhost:4200/recover-password?token=" + tokenService.tokenGenerate(user);
 
         EmailEntity emailEntity = new EmailEntity();
         emailEntity.setOwnerRef("ADM - Todo Web App");
