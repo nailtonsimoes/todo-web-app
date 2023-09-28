@@ -135,11 +135,22 @@ public class UserService {
         roleList.add(role);
 
         userModel.setRoles(roleList);
+        userRepository.save(userModel);
+    }
 
+    public void updatePassword(Long id, String password) {
+        UserEntity userModel = userRepository.findById(id)
+                .orElseThrow(
+                        () -> new ObjectNotFoundException(
+                                "Usuario não encontrado id: " + id + ", tipo: " + UserEntity.class.getName()
+                        ));
+
+        userModel.setPassword(passwordEncoder().encode(password));
         userRepository.save(userModel);
     }
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
 }

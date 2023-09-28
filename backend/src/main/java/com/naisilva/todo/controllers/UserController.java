@@ -89,6 +89,13 @@ public class UserController {
         userService.updateUser(id,user);
     }
 
+    @PutMapping("/recover-password/{id}")
+    @Operation(summary = "Update a password of a User", description = "Atualiza a senha de um usuario")
+    @ResponseStatus(HttpStatus.OK)
+    public void updatePasswordUser(@PathVariable Long id, @RequestBody String password){
+        userService.updatePassword(id, password);
+    }
+
 
 
     @DeleteMapping("/{id}")
