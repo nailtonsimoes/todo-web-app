@@ -2,7 +2,10 @@ package com.naisilva.todo.services;
 
 import com.naisilva.todo.config.enums.StatusEmail;
 import com.naisilva.todo.domain.EmailEntity;
+import com.naisilva.todo.domain.UserEntity;
+import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.EmailRepository;
+import com.naisilva.todo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,13 +17,37 @@ import java.time.LocalDateTime;
 @Service
 public class EmailService {
     @Autowired
-    EmailRepository emailRepository;
+    private final EmailRepository emailRepository;
+
+    @Autowired
+    private final UserRepository userRepository;
+
+    public EmailService(UserRepository userRepository, EmailRepository emailRepository) {
+        this.emailRepository = emailRepository;
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     private JavaMailSender emailSender;
 
 
-    public EmailEntity sendEmail(EmailEntity emailEntity) {
+    public EmailEntity forgotPassword(String email) {
+
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new ObjectNotFoundException(
+                                "Usuario não encontrado!"
+                        )
+                );
+
+        String url = "http://localhost:4200/recover-password?id=" + user.getId().toString();
+
+        EmailEntity emailEntity = new EmailEntity();
+        emailEntity.setOwnerRef("ADM - Todo Web App");
+        emailEntity.setSubject("ToDo Web App - Link para recuperação de senha");
+        emailEntity.setEmailFrom("nailtonsimoes@live.com");
+        emailEntity.setEmailTo(user.getEmail());
+        emailEntity.setText("Aqui esta o link para recuperar sua senha : " + url + "\n\n To Do App.");
         emailEntity.setSendDateEmail(LocalDateTime.now());
         try{
             SimpleMailMessage message = new SimpleMailMessage();
@@ -33,8 +60,8 @@ public class EmailService {
             emailEntity.setStatusEmail(StatusEmail.SENT);
         } catch (MailException e){
             emailEntity.setStatusEmail(StatusEmail.ERROR);
-        } finally {
-            return emailRepository.save(emailEntity);
         }
+
+        return emailRepository.save(emailEntity);
     }
 }

@@ -27,9 +27,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Autowired
-    private final TodoRepository todoRepository;
-
-    @Autowired
     private final RoleRepository roleRepository;
 
     @Autowired
@@ -38,7 +35,6 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository, TodoRepository todoRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.todoRepository = todoRepository;
         this.roleRepository = roleRepository;
     }
 
@@ -77,44 +73,38 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<UserEntity> getUserByUserName(String name) {
+    public Optional<UserEntity> findUserByUserName(String name) {
         return userRepository.findByName(name);
     }
 
-    public Optional<UserResponseDto> getUserById(Long id) {
+    public UserResponseDto findUserById(Long id) {
 
-        Optional<UserEntity> userModelOptional = userRepository.findById(id);
+        UserEntity user = userRepository.findById(id).orElseThrow(
+                () -> new ObjectNotFoundException(
+                        "Usuario não encontrado! "
+                ));
 
-        if (userModelOptional.isPresent()) {
-            UserEntity user = userModelOptional.get();
-            UserResponseDto userResponseDto = new UserResponseDto();
+        UserResponseDto userResponseDto = new UserResponseDto();
 
-            BeanUtils.copyProperties(user, userResponseDto);
+        BeanUtils.copyProperties(user, userResponseDto);
 
-            List<RoleDto> roles = user.getRoles().stream()
-                    .map(roleModel -> {
-                                RoleDto role = new RoleDto(roleModel.getName().toString());
-                                return role;
-                            }
-                    )
-                    .collect(Collectors.toList());
+        List<RoleDto> roles = user.getRoles().stream()
+                .map(roleModel -> new RoleDto(roleModel.getName().toString())
+                ).collect(Collectors.toList());
 
-            userResponseDto.setRoles(roles);
+        userResponseDto.setRoles(roles);
 
-            List<TodoResponseDto> todos = user.getTodos().stream()
-                    .map(todoModel -> {
-                        TodoResponseDto todo = new TodoResponseDto();
-                        BeanUtils.copyProperties(todoModel, todo);
-                        return todo;
-                    })
-                    .collect(Collectors.toList());
+        List<TodoResponseDto> todos = user.getTodos().stream()
+                .map(todoModel -> {
+                    TodoResponseDto todo = new TodoResponseDto();
+                    BeanUtils.copyProperties(todoModel, todo);
+                    return todo;
+                })
+                .collect(Collectors.toList());
 
-            userResponseDto.setTodos(todos);
+        userResponseDto.setTodos(todos);
 
-            return Optional.of(userResponseDto);
-        } else {
-            return Optional.empty();
-        }
+        return userResponseDto;
     }
 
     public List<UserResponseDto> listAllUsers() {

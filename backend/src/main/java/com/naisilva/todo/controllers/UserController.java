@@ -54,14 +54,14 @@ public class UserController {
     @GetMapping("/{id}")
     @Operation(summary = "Find a USER by Id", description = "Retorna um usuário")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<UserResponseDto> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public UserResponseDto getUserById(@PathVariable Long id) {
+        return userService.findUserById(id);
     }
 
     @GetMapping("/{userName}/allTodos/userName")
     @Operation(summary = "Find All TODOS by UserName", description = "Retorna uma lista de tarefas baseado em um usuario")
     public ResponseEntity<List<TodoResponseDto>> getTodosByUsername(@PathVariable String userName) {
-        Optional<UserEntity> user = userService.getUserByUserName(userName);
+        Optional<UserEntity> user = userService.findUserByUserName(userName);
         if (user.isPresent()) {
             List<TodoResponseDto> todos = todoService.getTodosByUserName(user.get().getName());
             return ResponseEntity.ok(todos);
@@ -73,11 +73,11 @@ public class UserController {
     @GetMapping("/{userId}/allTodos/byUserId")
     @Operation(summary = "Find All TODOS by UserId", description = "Retorna uma lista de tarefas baseado em um Id de usuario")
     public ResponseEntity<List<TodoResponseDto>> getTodosById(@PathVariable Long userId) {
-        Optional<UserResponseDto> user = userService.getUserById(userId);
-        if (user.isPresent()) {
-            List<TodoResponseDto> todos = todoService.getTodosByUserId(user.get().getId());
+        try{
+            UserResponseDto user = userService.findUserById(userId);
+            List<TodoResponseDto> todos = todoService.getTodosByUserId(user.getId());
             return ResponseEntity.ok(todos);
-        } else {
+        } catch (Exception e){
             return ResponseEntity.notFound().build();
         }
     }

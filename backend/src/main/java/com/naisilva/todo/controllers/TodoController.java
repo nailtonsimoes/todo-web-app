@@ -59,25 +59,6 @@ public class TodoController {
         return todoService.createTodo(userId, todo);
     }
 
-    /*
-    @GetMapping(value = "/open")
-    @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "READ_ALL_OPEN", description = "Retorna uma lista de tarefas em Aberto")
-    public ResponseEntity<List<TodoEntity>> listOpen() {
-        List<TodoEntity> list = todoService.findAllOpen();
-        return ResponseEntity.ok().body(list);
-    }
-     */
-
-    /*
-    @GetMapping(value = "/close")
-    @Operation(summary = "READ_ALL_CLOSE", description = "Retorna uma lista de tarefas encerradas")
-    public ResponseEntity<List<TodoEntity>> listClose() {
-        List<TodoEntity> list = todoService.findAllClose();
-        return ResponseEntity.ok().body(list);
-    }
-     */
-
     @Operation(summary = "Update a TODO", description = "Atualiza uma tarefa")
     @PutMapping(value = "/{id}/update")
     @ResponseStatus(HttpStatus.ACCEPTED)
