@@ -13,7 +13,7 @@ export class LoginService {
 
   baseUrl = environment.baseUrl;
   loginUrl = `${this.baseUrl}/auth/login`;
-  createUserUrl = `${this.baseUrl}/users/create`;
+
 
   async authentication(login: any) {
     const res = await this.http.post<any>(this.loginUrl, login).toPromise();
@@ -23,10 +23,6 @@ export class LoginService {
       return true;
     }
     return false;
-  }
-
-  createUser(user: UserRequestDto): Observable<UserRequestDto> {
-    return this.http.post<UserRequestDto>(this.createUserUrl, user);
   }
 
   getAuthorizationToken() {
@@ -78,5 +74,6 @@ export class LoginService {
     const decoded: any = jwtDecode(token);
     return decoded.id;
   }
+
 
 }

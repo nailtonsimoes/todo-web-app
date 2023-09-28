@@ -31,6 +31,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpInterceptorProviders } from './http-interceptors';
 import { ForgotPasswordComponent } from './components/login/forgot-password/forgot-password.component';
+import { RecoverPasswordComponent } from './components/login/recover-password/recover-password.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ForgotPasswordComponent } from './components/login/forgot-password/forg
     CreateUserComponent,
     HomeComponent,
     AuthComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { AuthGuard } from "./components/auth/auth.guard";
 import { ForgotPasswordComponent } from "./components/login/forgot-password/forgot-password.component";
+import { RecoverPasswordComponent } from "./components/login/recover-password/recover-password.component";
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
       {
         path: 'forgot-password',
         component: ForgotPasswordComponent
+      },
+      {
+        path: 'recover-password',
+        component: RecoverPasswordComponent
       }
     ]
   },
