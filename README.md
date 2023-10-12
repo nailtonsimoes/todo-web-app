@@ -7,7 +7,12 @@
 
  > <h2>Introdução:</h2>
 
- Aplicativo de tarefas onde pode ser feito cadastro de usuario e o mesmo pode realizar o CRUD de tarefas.</br>
+ Aplicativo de tarefas onde pode ser feito cadastro de usuario, tambem foi implementado
+ toda a parte de autenticação utilizando spring security e bcryp para encriptografar as senhas,
+ tambem foi implementado o sistema de recuperação de senha, onde o usuario insere seu email
+ e a aplicação envia um email para o mesmo com o link para recuperação de senha.
+ O usuario após validar sua autenticação pode realizar o CRUD de tarefas.</br>
+ 
  O modelo de usuario possui os seguintes atributos:</br>
  <ul>
     <li>id</li>
