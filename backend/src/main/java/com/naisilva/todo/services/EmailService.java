@@ -6,6 +6,7 @@ import com.naisilva.todo.domain.UserEntity;
 import com.naisilva.todo.exceptions.ObjectNotFoundException;
 import com.naisilva.todo.repositories.EmailRepository;
 import com.naisilva.todo.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 public class EmailService {
     @Autowired
@@ -45,7 +47,7 @@ public class EmailService {
                 );
 
         String url = "http://localhost:4200/recover-password?token=" + tokenService.tokenGenerate(user);
-
+        log.info("valor da url "+ url);
         EmailEntity emailEntity = new EmailEntity();
         emailEntity.setOwnerRef("ADM - Todo Web App");
         emailEntity.setSubject("ToDo Web App - Link para recuperação de senha");

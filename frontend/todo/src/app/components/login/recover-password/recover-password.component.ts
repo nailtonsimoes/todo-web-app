@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class RecoverPasswordComponent implements OnInit {
   form: FormGroup;
   password: string = '';
+  token: string = '';
   userId: string = '';
 
   constructor(
@@ -28,7 +30,7 @@ export class RecoverPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.activateRoute.queryParams.subscribe(params => {
-      this.userId = params['id'];
+      this.token = params['token'];
     });
   }
 
@@ -37,6 +39,8 @@ export class RecoverPasswordComponent implements OnInit {
       this.openSnackBar("Preencha todos os campos obrigatórios");
       return;
     }
+
+    this.getUserIdbyToken();
     this.password = this.form.controls["password"].value;
 
     this.service.recoverPassword(this.userId, this.password).subscribe(
@@ -48,6 +52,12 @@ export class RecoverPasswordComponent implements OnInit {
         this.openSnackBar("Erro ao alterar Senha..");
       }
     );
+  }
+
+  getUserIdbyToken() {
+    const decoded: any = jwtDecode(this.token);
+    this.userId = decoded.id;
+    console.log('User Id',this.userId);
   }
 
   openSnackBar(message: string) {
